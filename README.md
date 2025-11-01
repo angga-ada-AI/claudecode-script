@@ -32,7 +32,7 @@ Script ini hanya mengatur **environment variables** di terminal Anda. Setelah di
 
 ### Kegunaan Utama:
 1. **Menyiapkan koneksi ke API Anthropic** tanpa perlu hardcode API key di dalam kode aplikasi
-2. **Mengatur BASE URL** ke endpoint Z.AI: `https://api.z.ai/api/anthropic`
+2. **Mengatur BASE URL** `https://api.z.ai/api/anthropic`
 3. **Menyimpan API key** dengan aman melalui environment variables
 4. **Memudahkan penggunaan** dengan aplikasi Python atau bahasa lainnya yang menggunakan Anthropic API
 
