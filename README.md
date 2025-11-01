@@ -18,8 +18,6 @@ Script ini digunakan untuk **mengatur environment variables (variabel lingkungan
 
 Script ini adalah **script sederhana untuk terminal** yang hanya mengatur environment variables. Cukup:
 - ✅ **Jalankan langsung di terminal** (PowerShell di Windows, Terminal di Mac)
-- ✅ **Tidak perlu install aplikasi tambahan**
-- ✅ **Tidak perlu download CLI khusus**
 - ✅ **Hanya butuh terminal/command prompt yang sudah ada di sistem Anda**
 
 ### Bagaimana Cara Kerjanya?
