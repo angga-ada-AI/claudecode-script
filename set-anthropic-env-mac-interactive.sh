@@ -29,7 +29,7 @@ echo "📌 Shell yang terdeteksi: $SHELL_TYPE"
 echo ""
 
 # Prompt untuk API key
-read -p "🔑 Masukkan API key Z.AI Anda: " API_KEY
+read -p "🔑 Masukkan API key Anda: " API_KEY
 
 if [ -z "$API_KEY" ]; then
     echo "❌ Error: API key tidak boleh kosong!"

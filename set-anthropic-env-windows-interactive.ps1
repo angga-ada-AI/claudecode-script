@@ -7,7 +7,7 @@ Write-Host "========================================================" -Foregroun
 Write-Host ""
 
 # Prompt untuk API key
-$apiKey = Read-Host "🔑 Masukkan API key Z.AI Anda"
+$apiKey = Read-Host "🔑 Masukkan API key Anda"
 
 if ([string]::IsNullOrWhiteSpace($apiKey)) {
     Write-Host "❌ Error: API key tidak boleh kosong!" -ForegroundColor Red
