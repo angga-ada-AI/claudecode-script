@@ -14,7 +14,7 @@
 
 ## 📖 Apa Kegunaan Script Ini?
 
-Script ini digunakan untuk **mengatur environment variables (variabel lingkungan)** yang diperlukan untuk mengakses **Anthropic API melalui Z.AI**. 
+Script ini digunakan untuk **mengatur environment variables (variabel lingkungan)** yang diperlukan untuk mengakses **Anthropic API**. 
 
 ### ⚠️ Penting: Tidak Perlu Install CLI Khusus!
 
@@ -332,7 +332,6 @@ Semua aplikasi yang menggunakan Anthropic API SDK bisa membaca environment varia
 2. **JANGAN** share API key dengan orang lain
 3. **GUNAKAN** environment variables, jangan hardcode di kode
 4. **RESTRICT** permission file yang berisi API key
-5. **REVIEW** file `.gitignore` untuk memastikan file sensitif tidak ter-commit
 6. **JANGAN** screenshot terminal yang menampilkan API key
 
 ---
@@ -389,7 +388,6 @@ chmod +x script.sh
 
 - 📄 [`INSTALASI_WINDOWS.md`](INSTALASI_WINDOWS.md) - Panduan lengkap untuk Windows
 - 📄 [`INSTALASI_MAC.md`](INSTALASI_MAC.md) - Panduan lengkap untuk Mac
-- 📄 [`README.md`](README.md) - Dokumentasi asli dalam bahasa Inggris
 
 ---
 
