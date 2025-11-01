@@ -4,6 +4,8 @@
 
 - [Apa Kegunaan Script Ini?](#-apa-kegunaan-script-ini)
 - [Panduan Instalasi](#-panduan-instalasi)
+  - [Opsi 1: Install Claude Code CLI (Direkomendasikan untuk Chat Interface)](#opsi-1-install-claude-code-cli-direkomendasikan-untuk-chat-interface)
+  - [Opsi 2: Setup Environment Variables (Untuk API Programmatic)](#opsi-2-setup-environment-variables-untuk-api-programmatic)
 - [Cara Kerja Environment Variables](#-cara-kerja-environment-variables)
 - [Contoh Penggunaan dengan Python](#-contoh-penggunaan-dengan-python)
 - [FAQ - Pertanyaan Umum](#-faq---pertanyaan-umum)
@@ -30,13 +32,86 @@ Script ini hanya mengatur **environment variables** di terminal Anda. Setelah di
 3. **Menyimpan API key** dengan aman melalui environment variables
 4. **Memudahkan penggunaan** dengan aplikasi Python atau bahasa lainnya yang menggunakan Anthropic API
 
+### Dua Cara Penggunaan:
+
+#### 🎯 **Opsi 1: Claude Code CLI** (Direkomendasikan untuk Chat Interface di Terminal)
+- CLI tool resmi dari Anthropic untuk chat interface langsung di terminal
+- Instalasi: `npm install -g @anthropic-ai/claude-code`
+- Setup: Gunakan `setup-claude-code-windows.ps1` atau lihat [`INSTALASI_CLAUDE_CODE.md`](INSTALASI_CLAUDE_CODE.md)
+- Penggunaan: `claude` untuk chat langsung di terminal VS Code
+- **Ideal untuk:** Developer yang ingin chat dengan Claude sambil coding
+
+#### 💻 **Opsi 2: Environment Variables** (Untuk API Programmatic)
+- Setup environment variables untuk digunakan oleh aplikasi Python/JavaScript
+- Instalasi: Tidak perlu install CLI, cukup jalankan script setup
+- Penggunaan: Aplikasi Python/JS membaca dari environment variables
+- **Ideal untuk:** Developer yang ingin menggunakan API secara programmatic di aplikasi mereka
+
 ---
 
 ## 🚀 Panduan Instalasi
 
-Kami menyediakan panduan instalasi terpisah untuk setiap sistem operasi:
+Kami menyediakan dua opsi instalasi tergantung kebutuhan Anda:
 
-### 🪟 Untuk Windows
+### Opsi 1: Install Claude Code CLI (Direkomendasikan untuk Chat Interface)
+
+**Untuk mendapatkan chat interface langsung di terminal VS Code:**
+
+📄 **Lihat:** [`INSTALASI_CLAUDE_CODE.md`](INSTALASI_CLAUDE_CODE.md) - Panduan lengkap instalasi Claude Code CLI
+
+#### 🪟 Windows
+
+1. **Install Node.js 18+** (jika belum): [Download Node.js](https://nodejs.org)
+
+2. **Install Claude Code CLI:**
+   ```powershell
+   npm install -g @anthropic-ai/claude-code
+   ```
+
+3. **Setup konfigurasi otomatis:**
+   ```powershell
+   .\setup-claude-code-windows.ps1
+   ```
+
+4. **Gunakan Claude Code:**
+   ```powershell
+   cd your-project-directory
+   claude
+   ```
+
+#### 🍎 Mac/Linux
+
+1. **Install Node.js 18+** (jika belum)
+
+2. **Install Claude Code CLI:**
+   ```bash
+   npm install -g @anthropic-ai/claude-code
+   ```
+
+3. **Setup konfigurasi otomatis:**
+   ```bash
+   curl -O "https://cdn.bigmodel.cn/install/claude_code_zai_env.sh" && bash ./claude_code_zai_env.sh
+   ```
+
+4. **Gunakan Claude Code:**
+   ```bash
+   cd your-project-directory
+   claude
+   ```
+
+**Keuntungan Claude Code CLI:**
+- ✅ Chat interface langsung di terminal
+- ✅ Integrasi dengan VS Code terminal
+- ✅ Context-aware terhadap file di project
+- ✅ Tidak perlu setup aplikasi tambahan
+
+---
+
+### Opsi 2: Setup Environment Variables (Untuk API Programmatic)
+
+**Untuk menggunakan API secara programmatic di aplikasi Python/JavaScript:**
+
+#### 🪟 Windows
 📄 **Lihat:** [`INSTALASI_WINDOWS.md`](INSTALASI_WINDOWS.md)
 
 **Cara Paling Cepat:**
@@ -50,7 +125,7 @@ $env:ANTHROPIC_AUTH_TOKEN = "API_KEY_ANDA"
 .\set-anthropic-env-windows-interactive.ps1
 ```
 
-### 🍎 Untuk Mac
+#### 🍎 Mac
 📄 **Lihat:** [`INSTALASI_MAC.md`](INSTALASI_MAC.md)
 
 **Cara Paling Cepat:**
@@ -64,6 +139,11 @@ export ANTHROPIC_AUTH_TOKEN="API_KEY_ANDA"
 chmod +x set-anthropic-env-mac-interactive.sh
 ./set-anthropic-env-mac-interactive.sh
 ```
+
+**Keuntungan Environment Variables:**
+- ✅ Bisa digunakan oleh semua aplikasi (Python, JS, Go, dll)
+- ✅ Tidak perlu install CLI tool
+- ✅ Fleksibel untuk berbagai use case
 
 ---
 
@@ -222,7 +302,24 @@ ANTHROPIC_AUTH_TOKEN=your_api_key_here
 **Kesimpulan:** Tidak perlu file script kalau Anda tidak mau. Langsung copy-paste command saja juga bisa!
 
 ### Apakah saya perlu install Claude Code CLI?
-**TIDAK!** Script ini hanya untuk mengatur environment variables di terminal. Anda tidak perlu install CLI atau aplikasi khusus apapun. Cukup jalankan script di terminal biasa.
+
+**Tergantung kebutuhan Anda:**
+
+#### 🎯 **Ya, jika Anda ingin:**
+- Chat interface langsung di terminal VS Code
+- Interaksi real-time dengan Claude sambil coding
+- Context-aware terhadap file di project
+- **→ Install Claude Code CLI** (lihat [`INSTALASI_CLAUDE_CODE.md`](INSTALASI_CLAUDE_CODE.md))
+
+#### 💻 **Tidak perlu, jika Anda ingin:**
+- Menggunakan API secara programmatic di aplikasi Python/JavaScript
+- Build aplikasi sendiri yang menggunakan Anthropic API
+- Menggunakan API dari berbagai bahasa pemrograman
+- **→ Cukup setup environment variables** (lihat [`INSTALASI_WINDOWS.md`](INSTALASI_WINDOWS.md) atau [`INSTALASI_MAC.md`](INSTALASI_MAC.md))
+
+**Kesimpulan:**
+- **Claude Code CLI** = untuk chat interface di terminal
+- **Environment Variables** = untuk API programmatic
 
 ### Bagaimana workflow penggunaannya?
 Alur lengkapnya seperti ini:
@@ -380,8 +477,19 @@ chmod +x script.sh
 
 ## 📚 Referensi dan File Terkait
 
-- 📄 [`INSTALASI_WINDOWS.md`](INSTALASI_WINDOWS.md) - Panduan lengkap untuk Windows
-- 📄 [`INSTALASI_MAC.md`](INSTALASI_MAC.md) - Panduan lengkap untuk Mac
+### 🎯 Untuk Chat Interface di Terminal:
+- 📄 [`INSTALASI_CLAUDE_CODE.md`](INSTALASI_CLAUDE_CODE.md) - Panduan instalasi Claude Code CLI (Windows & Mac)
+- 📄 [`setup-claude-code-windows.ps1`](setup-claude-code-windows.ps1) - Script setup otomatis untuk Windows
+
+### 💻 Untuk API Programmatic:
+- 📄 [`INSTALASI_WINDOWS.md`](INSTALASI_WINDOWS.md) - Panduan setup environment variables untuk Windows
+- 📄 [`INSTALASI_MAC.md`](INSTALASI_MAC.md) - Panduan setup environment variables untuk Mac
+- 📄 [`set-anthropic-env-windows-interactive.ps1`](set-anthropic-env-windows-interactive.ps1) - Script interaktif untuk Windows
+- 📄 [`set-anthropic-env-mac-interactive.sh`](set-anthropic-env-mac-interactive.sh) - Script interaktif untuk Mac
+
+### 📖 Dokumentasi Eksternal:
+- [Dokumentasi Resmi Z.AI - Claude Code](https://docs.z.ai/scenario-example/develop-tools/claude)
+- [Z.AI Open Platform](https://z.ai) - Untuk mendapatkan API Key
 
 ---
 
