@@ -227,7 +227,7 @@ Unblock-File .\set-anthropic-env-windows-interactive.ps1
 ## 📚 Referensi
 
 Lihat juga:
-- `PANDUAN.md` - Panduan lengkap dalam bahasa Indonesia
+- `README.md` - Panduan lengkap dalam bahasa Indonesia
 - `INSTALASI_MAC.md` - Panduan untuk Mac (jika perlu)
 
 ---

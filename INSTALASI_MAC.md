@@ -149,6 +149,6 @@ source ~/.zshrc  # reload konfigurasi
 ## 📚 Referensi
 
 Lihat juga:
-- `PANDUAN.md` - Panduan lengkap dalam bahasa Indonesia
+- `README.md` - Panduan lengkap dalam bahasa Indonesia
 
 
