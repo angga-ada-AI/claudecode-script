@@ -16,10 +16,6 @@
 
 Script ini digunakan untuk **mengatur environment variables (variabel lingkungan)** yang diperlukan untuk mengakses **Anthropic API**. 
 
-### ⚠️ Penting: Tidak Perlu Install CLI Khusus!
-
-**Anda TIDAK perlu download atau install CLI Claude Code atau aplikasi khusus apapun!** 
-
 Script ini adalah **script sederhana untuk terminal** yang hanya mengatur environment variables. Cukup:
 - ✅ **Jalankan langsung di terminal** (PowerShell di Windows, Terminal di Mac)
 - ✅ **Tidak perlu install aplikasi tambahan**
