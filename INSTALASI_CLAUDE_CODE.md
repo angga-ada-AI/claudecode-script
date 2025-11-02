@@ -27,7 +27,7 @@ npm install -g @anthropic-ai/claude-code
 Ganti `your_api_key` dengan API key Anda yang sebenarnya (tanpa tanda kutip), lalu jalankan 2 command berikut:
 
 ```cmd
-setx ANTHROPIC_AUTH_TOKEN your_zai_api_key
+setx ANTHROPIC_AUTH_TOKEN your_api_key
 setx ANTHROPIC_BASE_URL https://api.z.ai/api/anthropic
 ```
 
@@ -98,7 +98,7 @@ sudo npm install -g @anthropic-ai/claude-code
 
 ### Step 2: Konfigurasi Otomatis (Paling Mudah)
 
-Jalankan script otomatis dari Z.AI:
+Jalankan script otomatis:
 ```bash
 curl -O "https://cdn.bigmodel.cn/install/claude_code_zai_env.sh" && bash ./claude_code_zai_env.sh
 ```
@@ -116,29 +116,6 @@ claude
 ```
 
 ---
-
-## ⚙️ Konfigurasi Lanjutan
-
-### Switch Model yang Digunakan
-
-Edit file `~/.claude/settings.json` (Windows: `C:\Users\[USERNAME]\.claude\settings.json`) dan tambahkan mapping model:
-
-```json
-{
-    "env": {
-        "ANTHROPIC_AUTH_TOKEN": "your_api_key",
-        "ANTHROPIC_BASE_URL": "https://api.z.ai/api/anthropic",
-        "API_TIMEOUT_MS": "3000000",
-        "ANTHROPIC_DEFAULT_HAIKU_MODEL": "glm-4.5-air",
-        "ANTHROPIC_DEFAULT_SONNET_MODEL": "glm-4.6",
-        "ANTHROPIC_DEFAULT_OPUS_MODEL": "glm-4.6"
-    }
-}
-```
-
-**Model yang tersedia:**
-- `GLM-4.6` (default untuk Opus dan Sonnet)
-- `GLM-4.5-Air` (default untuk Haiku)
 
 ### Cek Versi Claude Code
 

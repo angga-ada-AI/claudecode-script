@@ -46,7 +46,7 @@ npm install -g @anthropic-ai/claude-code
 
 **Cara Sederhana (Manual):**
 
-Ganti `your_api_key` dengan API key Z.AI Anda yang sebenarnya (tanpa tanda kutip), lalu jalankan:
+Ganti `your_api_key` dengan API key Anda yang sebenarnya (tanpa tanda kutip), lalu jalankan:
 
 ```cmd
 setx ANTHROPIC_AUTH_TOKEN your_api_key
@@ -106,7 +106,7 @@ sudo npm install -g @anthropic-ai/claude-code
 
 #### Step 2: Setup Konfigurasi Otomatis
 
-Jalankan script otomatis dari Z.AI:
+Jalankan script otomatis :
 
 ```bash
 curl -O "https://cdn.bigmodel.cn/install/claude_code_zai_env.sh" && bash ./claude_code_zai_env.sh
@@ -179,13 +179,6 @@ Lihat [`INSTALASI_CLAUDE_CODE.md`](INSTALASI_CLAUDE_CODE.md) untuk panduan lengk
 - Cukup buka terminal baru dan jalankan `claude`
 - Tidak perlu setup ulang
 
-### Bagaimana cara mendapatkan API Key?
-
-1. Login atau daftar di [Z.AI](https://z.ai)
-2. Buka halaman **API Keys**
-3. Buat API Key baru
-4. Copy API key Anda untuk digunakan di setup
-
 ### Apakah bisa ganti model yang digunakan?
 
 Ya, lihat bagian "Switch Model" di [`INSTALASI_CLAUDE_CODE.md`](INSTALASI_CLAUDE_CODE.md).
@@ -255,11 +248,6 @@ Ya, lihat bagian "Switch Model" di [`INSTALASI_CLAUDE_CODE.md`](INSTALASI_CLAUDE
 - [`INSTALASI_CLAUDE_CODE.md`](INSTALASI_CLAUDE_CODE.md) - Panduan instalasi lengkap Claude Code CLI
 - [`setup-claude-code-windows-simple.ps1`](setup-claude-code-windows-simple.ps1) - Script setup otomatis untuk Windows
 - [`PENJELASAN_RATE_LIMIT.md`](PENJELASAN_RATE_LIMIT.md) - Penjelasan tentang rate limit
-
-### 📖 Dokumentasi Eksternal:
-- [Dokumentasi Resmi Z.AI - Claude Code](https://docs.z.ai/scenario-example/develop-tools/claude)
-- [Z.AI Open Platform](https://z.ai) - Untuk mendapatkan API Key
-- [Node.js Download](https://nodejs.org) - Download Node.js
 
 ---
 

@@ -54,7 +54,7 @@ Write-Host ""
 Write-Host "Setup Environment Variables" -ForegroundColor Cyan
 Write-Host "==========================" -ForegroundColor Cyan
 Write-Host ""
-Write-Host "Masukkan API key Z.AI Anda:" -ForegroundColor Yellow
+Write-Host "Masukkan API key Anda:" -ForegroundColor Yellow
 $apiKey = Read-Host "API Key"
 
 if ([string]::IsNullOrWhiteSpace($apiKey)) {

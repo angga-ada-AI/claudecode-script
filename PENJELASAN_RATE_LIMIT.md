@@ -1,4 +1,4 @@
-# 📊 Penjelasan Rate Limit GLM
+# 📊 Penjelasan Rate Limit
 
 ## 🎯 Apa itu Rate Limit?
 
