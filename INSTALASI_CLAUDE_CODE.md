@@ -18,72 +18,68 @@ npm install -g @anthropic-ai/claude-code
 
 **Catatan:** Jika muncul error permission, jalankan PowerShell sebagai Administrator.
 
-### Step 2: Konfigurasi Rencana Pengkodean Claude
+### Step 2: Konfigurasi Environment Variables
 
-#### Manual Configuration
+#### Cara Sederhana (Manual Configuration) ⭐
 
-1. **Buat folder konfigurasi Claude Code** (jika belum ada):
-   ```powershell
-   # Folder konfigurasi ada di:
-   $env:USERPROFILE\.claude
-   ```
+**Windows CMD atau PowerShell:**
 
-2. **Buat atau edit file** `C:\Users\[USERNAME]\.claude\settings.json`:
-   
-   Buka PowerShell dan jalankan:
-   ```powershell
-   # Pastikan folder .claude ada
-   if (-not (Test-Path "$env:USERPROFILE\.claude")) {
-       New-Item -ItemType Directory -Path "$env:USERPROFILE\.claude"
-   }
-   
-   # Buat/edit file settings.json
-   $settings = @{
-       env = @{
-           ANTHROPIC_AUTH_TOKEN = "YOUR_ZAI_API_KEY_HERE"
-           ANTHROPIC_BASE_URL = "https://api.z.ai/api/anthropic"
-           API_TIMEOUT_MS = "3000000"
-       }
-   } | ConvertTo-Json -Depth 10
-   
-   $settings | Out-File -FilePath "$env:USERPROFILE\.claude\settings.json" -Encoding utf8
-   ```
+Ganti `your_api_key` dengan API key Anda yang sebenarnya (tanpa tanda kutip), lalu jalankan 2 command berikut:
 
-3. **Ganti `YOUR_ZAI_API_KEY_HERE`** dengan API key Z.AI Anda yang sebenarnya.
+```cmd
+setx ANTHROPIC_AUTH_TOKEN your_zai_api_key
+setx ANTHROPIC_BASE_URL https://api.z.ai/api/anthropic
+```
 
-**Atau edit manual dengan notepad:**
+**Contoh:**
+```cmd
+setx ANTHROPIC_AUTH_TOKEN sk-ant-xxxxx-your-actual-api-key-here
+setx ANTHROPIC_BASE_URL https://api.z.ai/api/anthropic
+```
+
+**Catatan Penting:**
+- `setx` akan set environment variables secara **permanen** di sistem Windows
+- Setelah menjalankan `setx`, Anda **harus tutup terminal dan buka terminal baru** agar environment variables aktif
+- Ganti `your_zai_api_key` dengan API key Anda yang sebenarnya (tanpa tanda kutip)
+- Command `setx` tidak akan menampilkan output - itu normal, asalkan tidak ada error
+
+#### Atau Gunakan Script Otomatis (Opsional)
+
+Jika ingin cara yang lebih interaktif, gunakan script:
+
 ```powershell
-notepad "$env:USERPROFILE\.claude\settings.json"
+.\setup-claude-code-windows-simple.ps1
 ```
 
-Masukkan isi berikut (ganti dengan API key Anda):
-```json
-{
-    "env": {
-        "ANTHROPIC_AUTH_TOKEN": "sk-ant-xxxxx-your-api-key-here",
-        "ANTHROPIC_BASE_URL": "https://api.z.ai/api/anthropic",
-        "API_TIMEOUT_MS": "3000000"
-    }
-}
-```
+**Catatan:** 
+- Di PowerShell, gunakan `.\` di depan nama script untuk menjalankan script lokal
+- Script akan:
+  - Cek apakah Node.js dan Claude Code sudah terinstall
+  - Install otomatis jika belum ada
+  - Meminta input API key Anda
+  - Menjalankan `setx` secara otomatis
 
 ### Step 3: Mulai Menggunakan Claude Code
 
-1. **Navigasi ke folder project** Anda:
+1. **Tutup terminal saat ini dan buka terminal baru** (penting! agar environment variables aktif)
+
+2. **Navigasi ke folder project** Anda:
    ```powershell
    cd your-project-directory
    ```
 
-2. **Jalankan Claude Code**:
+3. **Jalankan Claude Code**:
    ```powershell
    claude
    ```
 
-3. **Jika diminta** "Do you want to use this API key," pilih **"Yes"**.
+4. **Jika diminta** "Do you want to use this API key," pilih **"Yes"**.
 
-4. **Grant permission** untuk akses file di folder project.
+5. **Grant permission** untuk akses file di folder project saat diminta.
 
-5. **Selesai!** Anda sekarang bisa chat dengan Claude Code di terminal! 🎉
+6. **Selesai!** Anda sekarang bisa chat dengan Claude Code di terminal! 🎉
+
+**Tips:** Gunakan command `/status` di dalam Claude Code untuk mengecek apakah konfigurasi sudah benar.
 
 ---
 

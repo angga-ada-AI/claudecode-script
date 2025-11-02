@@ -68,15 +68,25 @@ Kami menyediakan dua opsi instalasi tergantung kebutuhan Anda:
    npm install -g @anthropic-ai/claude-code
    ```
 
-3. **Setup konfigurasi otomatis:**
-   ```powershell
-   .\setup-claude-code-windows.ps1
+3. **Setup konfigurasi (Cara Sederhana):**
+   
+   Ganti `your_zai_api_key` dengan API key Anda, lalu jalankan:
+   ```cmd
+   setx ANTHROPIC_AUTH_TOKEN your_zai_api_key
+   setx ANTHROPIC_BASE_URL https://api.z.ai/api/anthropic
    ```
+   
+   **Catatan:** Setelah `setx`, tutup terminal dan buka terminal baru agar environment variables aktif.
 
 4. **Gunakan Claude Code:**
    ```powershell
    cd your-project-directory
    claude
+   ```
+   
+   **Atau gunakan script otomatis** (opsional):
+   ```powershell
+   .\setup-claude-code-windows-simple.ps1
    ```
 
 #### 🍎 Mac/Linux
