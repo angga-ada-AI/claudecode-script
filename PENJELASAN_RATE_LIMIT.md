@@ -14,7 +14,7 @@ Concurrency limit adalah **berapa banyak chat/request yang bisa Anda kirim secar
 
 **Contoh:**
 
-Jika model **GLM-4.5** memiliki concurrency limit **10**:
+Jika model claude code memiliki concurrency limit **10**:
 - ✅ Anda bisa membuka **10 terminal** dan masing-masing mengirim chat **pada waktu yang sama**
 - ✅ Atau dalam 1 terminal, kirim **10 chat sekaligus** (bersamaan)
 - ❌ Jika Anda kirim **11 chat bersamaan**, chat ke-11 harus **tunggu** sampai salah satu chat selesai
@@ -59,7 +59,7 @@ Seperti kasir di supermarket:
 
 **⚠️ Penggunaan Multiple Terminal:**
 - Buka 3 terminal, masing-masing kirim chat bersamaan
-- **Masih aman** untuk GLM-4.5 (limit 10)
+- **Masih aman** (limit 10)
 - Asalkan total terminal tidak lebih dari limit model
 
 **❌ Penggunaan Berlebihan:**
@@ -117,7 +117,7 @@ Terminal 1: kirim chat "Jelaskan Python"
 Terminal 2: kirim chat "Jelaskan JavaScript" (bersamaan)
 Terminal 3: kirim chat "Jelaskan Java" (bersamaan)
 ↓
-GLM-4.5 (limit 10) → 3 chat bersamaan
+(limit 10) → 3 chat bersamaan
 ```
 
 **Hasil:** ✅ Masih aman karena hanya 3 chat < 10 limit
@@ -131,7 +131,7 @@ Anda buka 15 terminal
 ↓
 Semua terminal kirim chat bersamaan
 ↓
-GLM-4.5 (limit 10) → hanya 10 yang diproses langsung
+(limit 10) → hanya 10 yang diproses langsung
 ↓
 5 terminal harus tunggu
 ```
