@@ -152,6 +152,64 @@ claude update
 3. **Validasi JSON format** - pastikan tidak ada comma berlebih atau syntax error
 4. **Hapus dan buat ulang** `~/.claude/settings.json` jika perlu
 
+### Script Tidak Bisa Dijalankan (Execution Policy Error)
+
+**Error:** 
+```
+File cannot be loaded. The file is not digitally signed. 
+You cannot run this script on the current system.
+```
+
+**Penyebab:**
+- **Bukan masalah folder location** - Script bisa di folder manapun
+- **Bukan masalah administrator** - Tapi administrator diperlukan untuk mengubah execution policy
+- **Masalah:** PowerShell execution policy memblokir script yang tidak ditandatangani
+
+**Solusi 1: Set Execution Policy (Direkomendasikan)**
+
+1. **Buka PowerShell sebagai Administrator:**
+   - Klik kanan PowerShell → "Run as Administrator"
+
+2. **Jalankan command:**
+   ```powershell
+   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+   ```
+
+3. **Konfirmasi dengan "Y"** jika diminta
+
+4. **Tutup PowerShell Administrator**, buka PowerShell biasa
+
+5. **Jalankan script lagi:**
+   ```powershell
+   .\setup-claude-code-windows-simple.ps1
+   ```
+
+**Penjelasan:**
+- `RemoteSigned` = Izinkan script lokal yang tidak ditandatangani, tapi script dari internet harus ditandatangani
+- `CurrentUser` = Hanya berlaku untuk user saat ini (aman, tidak mempengaruhi user lain di komputer yang sama)
+
+**Solusi 2: Bypass untuk Session Saat Ini**
+
+Jika tidak ingin mengubah execution policy permanen:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\setup-claude-code-windows-simple.ps1
+```
+
+**Solusi 3: Gunakan Cara Manual (Paling Aman)**
+
+Jika tidak ingin mengubah execution policy, gunakan cara manual tanpa script:
+
+```cmd
+setx ANTHROPIC_AUTH_TOKEN your_api_key
+setx ANTHROPIC_BASE_URL https://api.z.ai/api/anthropic
+```
+
+**Catatan Penting:**
+- ✅ **Folder location tidak masalah** - Script bisa di `C:\`, `D:\`, atau folder manapun
+- ⚠️ **Administrator diperlukan** untuk mengubah execution policy (Solusi 1)
+- ✅ **Cara manual (`setx`)** tidak memerlukan execution policy atau administrator
+
 ### Permission Denied saat Install
 
 **Windows:**

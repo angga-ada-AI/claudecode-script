@@ -209,6 +209,58 @@ Ya, lihat bagian "Switch Model" di [`INSTALASI_CLAUDE_CODE.md`](INSTALASI_CLAUDE
 3. **Jika kosong**, setup ulang dengan `setx` atau script otomatis
 4. **Pastikan tutup terminal dan buka terminal baru** setelah setup
 
+### Script Tidak Bisa Dijalankan (Execution Policy Error)
+
+**Error:** 
+```
+File cannot be loaded. The file is not digitally signed. 
+You cannot run this script on the current system.
+```
+
+**Penyebab:**
+- Bukan masalah folder location
+- Bukan masalah administrator (tapi bisa membantu)
+- **Masalah:** PowerShell execution policy memblokir script yang tidak ditandatangani
+
+**Solusi 1: Set Execution Policy (Direkomendasikan)**
+
+Jalankan PowerShell sebagai Administrator, lalu:
+
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+**Penjelasan:**
+- `RemoteSigned` = Izinkan script lokal yang tidak ditandatangani, tapi script dari internet harus ditandatangani
+- `CurrentUser` = Hanya berlaku untuk user saat ini (aman, tidak mempengaruhi user lain)
+
+**Setelah itu, jalankan script lagi:**
+```powershell
+.\setup-claude-code-windows-simple.ps1
+```
+
+**Solusi 2: Bypass untuk Session Saat Ini (Alternatif)**
+
+Jika tidak ingin mengubah execution policy permanen:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\setup-claude-code-windows-simple.ps1
+```
+
+**Solusi 3: Gunakan Cara Manual (Paling Aman)**
+
+Jika tidak ingin mengubah execution policy, gunakan cara manual:
+
+```cmd
+setx ANTHROPIC_AUTH_TOKEN your_api_key
+setx ANTHROPIC_BASE_URL https://api.z.ai/api/anthropic
+```
+
+**Catatan:**
+- Folder location tidak masalah (bisa di `C:\` atau folder manapun)
+- Administrator tidak selalu diperlukan untuk execution policy (tapi diperlukan untuk `Set-ExecutionPolicy`)
+- Cara manual (`setx`) tidak memerlukan execution policy
+
 ### Permission Denied saat Install
 
 **Windows:**
