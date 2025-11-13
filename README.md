@@ -270,6 +270,46 @@ setx ANTHROPIC_BASE_URL https://api.z.ai/api/anthropic
 **Mac/Linux:**
 - Gunakan `sudo`: `sudo npm install -g @anthropic-ai/claude-code`
 
+### Error "npm is not recognized"
+
+**Error:**
+```
+npm : The term 'npm' is not recognized as the name of a cmdlet, function, script file, or operable program.
+```
+
+**Penyebab:**
+Node.js belum terinstall atau npm tidak ada di PATH sistem.
+
+**Solusi:**
+
+1. **Install Node.js:**
+   - Download Node.js dari: https://nodejs.org
+   - Pilih versi LTS (Long Term Support)
+   - Install dengan default settings
+   - **Penting:** Pastikan pilih opsi "Add to PATH" saat install
+
+2. **Setelah install, restart terminal:**
+   - Tutup semua terminal/PowerShell
+   - Buka terminal baru
+
+3. **Verifikasi instalasi:**
+   ```powershell
+   node --version
+   npm --version
+   ```
+   
+   Jika muncul versi, berarti Node.js sudah terinstall dengan benar.
+
+4. **Install Claude Code CLI:**
+   ```powershell
+   npm install -g @anthropic-ai/claude-code
+   ```
+
+**Catatan:**
+- Node.js versi 18 atau lebih baru diperlukan
+- Jika sudah install tapi masih error, cek apakah Node.js ada di PATH
+- Restart terminal setelah install Node.js
+
 ### Claude Code tidak bisa akses file
 
 - Pastikan Anda menjalankan `claude` di dalam folder project

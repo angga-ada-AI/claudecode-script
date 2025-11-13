@@ -213,6 +213,53 @@ setx ANTHROPIC_BASE_URL https://api.z.ai/api/anthropic
 - ⚠️ **Administrator diperlukan** untuk mengubah execution policy (Solusi 1)
 - ✅ **Cara manual (`setx`)** tidak memerlukan execution policy atau administrator
 
+### Error "npm is not recognized"
+
+**Error:**
+```
+npm : The term 'npm' is not recognized as the name of a cmdlet, function, script file, or operable program.
+```
+
+**Penyebab:**
+Node.js belum terinstall atau npm tidak ada di PATH sistem.
+
+**Solusi:**
+
+1. **Install Node.js:**
+   - Download Node.js dari: https://nodejs.org
+   - Pilih versi **LTS (Long Term Support)** - direkomendasikan
+   - Install dengan default settings
+   - **Penting:** Pastikan pilih opsi **"Add to PATH"** saat install
+
+2. **Setelah install, restart terminal:**
+   - Tutup semua terminal/PowerShell yang terbuka
+   - Buka terminal/PowerShell baru
+
+3. **Verifikasi instalasi:**
+   ```powershell
+   node --version
+   npm --version
+   ```
+   
+   Jika muncul versi (contoh: `v20.10.0` dan `10.2.3`), berarti Node.js sudah terinstall dengan benar.
+
+4. **Install Claude Code CLI:**
+   ```powershell
+   npm install -g @anthropic-ai/claude-code
+   ```
+
+**Catatan Penting:**
+- ✅ Node.js versi **18 atau lebih baru** diperlukan
+- ✅ Jika sudah install tapi masih error, kemungkinan Node.js tidak ada di PATH
+- ✅ **Restart terminal** setelah install Node.js (penting!)
+- ✅ Jika masih error setelah restart, cek PATH environment variable
+
+**Cek PATH (Jika Masih Error):**
+
+1. Buka System Properties → Environment Variables
+2. Cek apakah ada `C:\Program Files\nodejs\` di PATH
+3. Jika tidak ada, tambahkan manual
+
 ### Permission Denied saat Install
 
 **Windows:**
