@@ -3,6 +3,9 @@
 ## 📋 Prerequisites
 
 1. **Node.js 18 atau lebih baru** terinstall
+2. **Git Bash** terinstall (untuk Windows) - Download: https://git-scm.com/downloads/win
+
+**Catatan:** Saat install Git, pastikan pilih opsi "Add Git to PATH" agar Git Bash bisa ditemukan otomatis.
 
 ---
 
@@ -217,6 +220,55 @@ setx ANTHROPIC_BASE_URL https://api.z.ai/api/anthropic
 
 **Mac/Linux:**
 - Gunakan `sudo npm install -g @anthropic-ai/claude-code`
+
+### Error "Claude Code on Windows requires git-bash"
+
+**Error:**
+```
+Error: Claude Code on Windows requires git-bash
+If installed but not in PATH, set environment variable pointing to your bash.exe
+```
+
+**Penyebab:**
+Claude Code di Windows memerlukan Git Bash untuk berjalan, tapi Git Bash tidak ditemukan atau tidak ada di PATH.
+
+**Solusi 1: Install Git Bash (Jika Belum Terinstall)**
+
+1. **Download Git untuk Windows:**
+   - Kunjungi: https://git-scm.com/downloads/win
+   - Download dan install Git untuk Windows
+   - **Penting:** Saat install, pastikan pilih opsi **"Add Git to PATH"**
+
+2. **Setelah install, restart terminal** dan jalankan `claude` lagi
+
+**Solusi 2: Set Environment Variable (Jika Git Bash Sudah Terinstall)**
+
+Jika Git Bash sudah terinstall tapi tidak di PATH:
+
+1. **Cari lokasi Git Bash:**
+   - Biasanya ada di: `C:\Program Files\Git\bin\bash.exe`
+   - Atau: `C:\Program Files (x86)\Git\bin\bash.exe`
+   - Atau cek dengan: `where bash` di Command Prompt
+
+2. **Set environment variable:**
+   ```cmd
+   setx CLAUDE_CODE_GIT_BASH_PATH "C:\Program Files\Git\bin\bash.exe"
+   ```
+   
+   **Catatan:** Ganti path dengan lokasi Git Bash Anda yang sebenarnya
+
+3. **Tutup terminal dan buka terminal baru**
+
+4. **Jalankan `claude` lagi**
+
+**Cek Apakah Git Bash Terinstall:**
+
+Jalankan di Command Prompt atau PowerShell:
+```cmd
+where bash
+```
+
+Jika muncul path seperti `C:\Program Files\Git\bin\bash.exe`, berarti Git Bash sudah terinstall.
 
 ### Claude Code Tidak Bisa Akses File
 
