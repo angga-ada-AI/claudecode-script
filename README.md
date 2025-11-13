@@ -10,6 +10,7 @@ Panduan lengkap untuk menginstall dan menggunakan Claude Code CLI untuk chat int
 - [FAQ - Pertanyaan Umum](#-faq---pertanyaan-umum)
 - [Troubleshooting](#-troubleshooting)
 - [Keamanan](#️-keamanan)
+- [Referensi](#-referensi-dan-file-terkait)
 
 ---
 
@@ -187,188 +188,16 @@ Ya, lihat bagian "Switch Model" di [`INSTALASI_CLAUDE_CODE.md`](INSTALASI_CLAUDE
 
 ## 🔍 Troubleshooting
 
-### Claude Code tidak terinstall
+Untuk solusi lengkap berbagai error yang mungkin terjadi, lihat:
 
-**Error:** `claude: command not found`
+📄 **[`TROUBLESHOOTING.md`](TROUBLESHOOTING.md)** - Panduan troubleshooting lengkap
 
-**Solusi:**
-- Pastikan Node.js sudah terinstall: `node --version`
-- Install ulang: `npm install -g @anthropic-ai/claude-code`
-- Pastikan npm global bin ada di PATH
-- Restart terminal setelah install
+File tersebut mencakup:
+- ✅ Error instalasi (npm not recognized, execution policy, network error)
+- ✅ Error konfigurasi (script tidak bisa dijalankan, konfigurasi tidak bekerja)
+- ✅ Error runtime (git-bash required, akses file, command not found)
+- ✅ Solusi lengkap untuk setiap error dengan penjelasan detail
 
-### Konfigurasi tidak bekerja
-
-**Error:** "API key tidak ditemukan" atau Claude Code tidak bisa connect
-
-**Solusi:**
-1. **Tutup semua terminal/Claude Code** dan buka terminal baru
-2. **Cek environment variables:**
-   - Windows: `echo $env:ANTHROPIC_AUTH_TOKEN`
-   - Mac/Linux: `echo $ANTHROPIC_AUTH_TOKEN`
-3. **Jika kosong**, setup ulang dengan `setx` atau script otomatis
-4. **Pastikan tutup terminal dan buka terminal baru** setelah setup
-
-### Script Tidak Bisa Dijalankan (Execution Policy Error)
-
-**Error:** 
-```
-File cannot be loaded. The file is not digitally signed. 
-You cannot run this script on the current system.
-```
-
-**Penyebab:**
-- Bukan masalah folder location
-- Bukan masalah administrator (tapi bisa membantu)
-- **Masalah:** PowerShell execution policy memblokir script yang tidak ditandatangani
-
-**Solusi 1: Set Execution Policy (Direkomendasikan)**
-
-Jalankan PowerShell sebagai Administrator, lalu:
-
-```powershell
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-```
-
-**Penjelasan:**
-- `RemoteSigned` = Izinkan script lokal yang tidak ditandatangani, tapi script dari internet harus ditandatangani
-- `CurrentUser` = Hanya berlaku untuk user saat ini (aman, tidak mempengaruhi user lain)
-
-**Setelah itu, jalankan script lagi:**
-```powershell
-.\setup-claude-code-windows-simple.ps1
-```
-
-**Solusi 2: Bypass untuk Session Saat Ini (Alternatif)**
-
-Jika tidak ingin mengubah execution policy permanen:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\setup-claude-code-windows-simple.ps1
-```
-
-**Solusi 3: Gunakan Cara Manual (Paling Aman)**
-
-Jika tidak ingin mengubah execution policy, gunakan cara manual:
-
-```cmd
-setx ANTHROPIC_AUTH_TOKEN your_api_key
-setx ANTHROPIC_BASE_URL https://api.z.ai/api/anthropic
-```
-
-**Catatan:**
-- Folder location tidak masalah (bisa di `C:\` atau folder manapun)
-- Administrator tidak selalu diperlukan untuk execution policy (tapi diperlukan untuk `Set-ExecutionPolicy`)
-- Cara manual (`setx`) tidak memerlukan execution policy
-
-### Permission Denied saat Install
-
-**Windows:**
-- Jalankan PowerShell sebagai Administrator
-- Atau install manual: `npm install -g @anthropic-ai/claude-code`
-
-**Mac/Linux:**
-- Gunakan `sudo`: `sudo npm install -g @anthropic-ai/claude-code`
-
-### Error "npm is not recognized"
-
-**Error:**
-```
-npm : The term 'npm' is not recognized as the name of a cmdlet, function, script file, or operable program.
-```
-
-**Penyebab:**
-Node.js belum terinstall atau npm tidak ada di PATH sistem.
-
-**Solusi:**
-
-1. **Install Node.js:**
-   - Download Node.js dari: https://nodejs.org
-   - Pilih versi LTS (Long Term Support)
-   - Install dengan default settings
-   - **Penting:** Pastikan pilih opsi "Add to PATH" saat install
-
-2. **Setelah install, restart terminal:**
-   - Tutup semua terminal/PowerShell
-   - Buka terminal baru
-
-3. **Verifikasi instalasi:**
-   ```powershell
-   node --version
-   npm --version
-   ```
-   
-   Jika muncul versi, berarti Node.js sudah terinstall dengan benar.
-
-4. **Install Claude Code CLI:**
-   ```powershell
-   npm install -g @anthropic-ai/claude-code
-   ```
-
-**Catatan:**
-- Node.js versi 18 atau lebih baru diperlukan
-- Jika sudah install tapi masih error, cek apakah Node.js ada di PATH
-- Restart terminal setelah install Node.js
-
-### Claude Code tidak bisa akses file
-
-- Pastikan Anda menjalankan `claude` di dalam folder project
-- Grant permission saat diminta saat pertama kali
-- Cek permission folder project
-
-### Error "Claude Code on Windows requires git-bash"
-
-**Error:**
-```
-Error: Claude Code on Windows requires git-bash
-If installed but not in PATH, set environment variable pointing to your bash.exe
-```
-
-**Penyebab:**
-Claude Code di Windows memerlukan Git Bash untuk berjalan, tapi Git Bash tidak ditemukan atau tidak ada di PATH.
-
-**Solusi 1: Install Git Bash (Jika Belum Terinstall)**
-
-1. **Download Git untuk Windows:**
-   - Kunjungi: https://git-scm.com/downloads/win
-   - Download dan install Git untuk Windows
-   - **Penting:** Saat install, pastikan pilih opsi "Add Git to PATH"
-
-2. **Setelah install, restart terminal** dan jalankan `claude` lagi
-
-**Solusi 2: Set Environment Variable (Jika Git Bash Sudah Terinstall)**
-
-Jika Git Bash sudah terinstall tapi tidak di PATH:
-
-1. **Cari lokasi Git Bash:**
-   - Biasanya ada di: `C:\Program Files\Git\bin\bash.exe`
-   - Atau: `C:\Program Files (x86)\Git\bin\bash.exe`
-
-2. **Set environment variable:**
-   ```cmd
-   setx CLAUDE_CODE_GIT_BASH_PATH "C:\Program Files\Git\bin\bash.exe"
-   ```
-   
-   **Catatan:** Ganti path dengan lokasi Git Bash Anda yang sebenarnya
-
-3. **Tutup terminal dan buka terminal baru**
-
-4. **Jalankan `claude` lagi**
-
-**Cek Apakah Git Bash Terinstall:**
-
-Jalankan di Command Prompt atau PowerShell:
-```cmd
-where bash
-```
-
-Jika muncul path seperti `C:\Program Files\Git\bin\bash.exe`, berarti Git Bash sudah terinstall.
-
-### Error "Rate Limit Exceeded"
-
-- Tunggu beberapa detik, lalu coba lagi
-- Jangan spam chat (tunggu response selesai sebelum kirim berikutnya)
-- Lihat [`PENJELASAN_RATE_LIMIT.md`](PENJELASAN_RATE_LIMIT.md) untuk penjelasan lengkap
 
 ---
 
@@ -386,6 +215,7 @@ Jika muncul path seperti `C:\Program Files\Git\bin\bash.exe`, berarti Git Bash s
 
 ### 📄 File di Repository Ini:
 - [`INSTALASI_CLAUDE_CODE.md`](INSTALASI_CLAUDE_CODE.md) - Panduan instalasi lengkap Claude Code CLI
+- [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md) - Panduan troubleshooting lengkap untuk semua error
 - [`setup-claude-code-windows-simple.ps1`](setup-claude-code-windows-simple.ps1) - Script setup otomatis untuk Windows
 - [`PENJELASAN_RATE_LIMIT.md`](PENJELASAN_RATE_LIMIT.md) - Penjelasan tentang rate limit
 
@@ -398,7 +228,7 @@ Jika masih mengalami masalah:
 1. Cek panduan di [`INSTALASI_CLAUDE_CODE.md`](INSTALASI_CLAUDE_CODE.md)
 2. Pastikan API key Anda valid dan belum expired
 3. Pastikan BASE URL benar: `https://api.z.ai/api/anthropic`
-4. Cek troubleshooting section di atas
+4. Cek [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md) untuk solusi lengkap
 5. Pastikan Node.js versi 18+ sudah terinstall
 
 ---
