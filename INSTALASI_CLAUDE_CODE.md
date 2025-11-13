@@ -33,7 +33,7 @@ setx ANTHROPIC_BASE_URL https://api.z.ai/api/anthropic
 
 **Contoh:**
 ```cmd
-setx ANTHROPIC_AUTH_TOKEN sk-ant-xxxxx-your-actual-api-key-here
+setx ANTHROPIC_AUTH_TOKEN 9042c751be4148fdbce1b0b4e1a60df5.dMtEZN
 setx ANTHROPIC_BASE_URL https://api.z.ai/api/anthropic
 ```
 
