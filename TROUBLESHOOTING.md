@@ -349,13 +349,105 @@ Jika muncul path seperti `C:\Program Files\Git\bin\bash.exe`, berarti Git Bash s
 
 ### Error "claude: command not found"
 
-**Windows:**
-- Pastikan npm global bin sudah ada di PATH
-- Restart PowerShell setelah install
+**Error:**
+```
+claude : The term 'claude' is not recognized as the name of a cmdlet, function, script file, or operable program.
+```
+
+**Penyebab:**
+- ❌ **BUKAN masalah PowerShell** - PowerShell bekerja dengan baik
+- ✅ **Masalah:** Claude Code CLI belum terinstall, atau npm global bin tidak ada di PATH
+
+**Solusi Step-by-Step:**
+
+#### Step 1: Cek Apakah Claude Code Sudah Terinstall
+
+Jalankan di PowerShell:
+```powershell
+npm list -g @anthropic-ai/claude-code
+```
+
+**Jika muncul error atau "empty", berarti belum terinstall.** Lanjut ke Step 2.
+
+**Jika muncul versi (contoh: `@anthropic-ai/claude-code@2.0.14`), berarti sudah terinstall.** Lanjut ke Step 3.
+
+#### Step 2: Install Claude Code CLI
+
+Jika belum terinstall, install dengan:
+
+```powershell
+npm install -g @anthropic-ai/claude-code
+```
+
+**Catatan:**
+- Jika muncul error `npm is not recognized`, lihat bagian [Error "npm is not recognized"](#error-npm-is-not-recognized)
+- Jika muncul error `npm.ps1 cannot be loaded`, lihat bagian [Error "npm.ps1 cannot be loaded"](#error-npmps1-cannot-be-loaded-execution-policy)
+- Jika muncul error network, lihat bagian [Error Network/Connection (ENOTFOUND)](#error-networkconnection-enotfound)
+
+#### Step 3: Restart Terminal (PENTING!)
+
+**Setelah install, WAJIB restart terminal:**
+
+1. **Tutup semua terminal/PowerShell yang terbuka**
+2. **Buka PowerShell baru**
+3. **Coba jalankan `claude` lagi**
+
+**Mengapa harus restart?**
+- Terminal yang sudah terbuka tidak akan membaca PATH yang baru
+- Terminal baru akan membaca PATH terbaru dari sistem
+
+#### Step 4: Cek PATH npm Global Bin (Jika Masih Error)
+
+Jika setelah restart masih error, cek apakah npm global bin ada di PATH:
+
+**Windows PowerShell:**
+```powershell
+npm config get prefix
+```
+
+Ini akan menampilkan path seperti: `C:\Users\[USERNAME]\AppData\Roaming\npm`
+
+**Cek apakah path tersebut ada di PATH:**
+```powershell
+$env:PATH -split ';' | Select-String "npm"
+```
+
+**Jika tidak muncul**, tambahkan manual ke PATH:
+
+1. Buka System Properties → Environment Variables
+2. Edit "Path" di User variables
+3. Tambahkan path dari `npm config get prefix` (contoh: `C:\Users\[USERNAME]\AppData\Roaming\npm`)
+4. **Restart terminal** setelah menambah PATH
+
+#### Step 5: Verifikasi Instalasi
+
+Setelah semua langkah di atas, verifikasi:
+
+```powershell
+claude --version
+```
+
+Jika muncul versi (contoh: `2.0.14`), berarti sudah berhasil!
 
 **Mac/Linux:**
-- Cek apakah npm global bin ada di PATH: `echo $PATH`
-- Install ulang dengan `sudo` jika perlu
+
+1. **Cek apakah npm global bin ada di PATH:**
+   ```bash
+   echo $PATH
+   ```
+   Pastikan ada path seperti `/usr/local/bin` atau `/home/[USERNAME]/.npm-global/bin`
+
+2. **Install ulang dengan `sudo` jika perlu:**
+   ```bash
+   sudo npm install -g @anthropic-ai/claude-code
+   ```
+
+3. **Restart terminal** setelah install
+
+**Catatan Penting:**
+- ✅ **PowerShell tidak bermasalah** - Error ini normal jika CLI belum terinstall
+- ✅ **Restart terminal** adalah langkah penting yang sering terlewat
+- ✅ Jika sudah install tapi masih error, kemungkinan masalah PATH
 
 ---
 
@@ -373,8 +465,4 @@ Jika muncul path seperti `C:\Program Files\Git\bin\bash.exe`, berarti Git Bash s
 - [`README.md`](README.md) - Panduan utama
 - [`PENJELASAN_RATE_LIMIT.md`](PENJELASAN_RATE_LIMIT.md) - Penjelasan tentang rate limit
 
----
-
-**Jika masih mengalami masalah yang tidak tercantum di sini, cek dokumentasi resmi:**
-- [Dokumentasi Resmi Z.AI - Claude Code](https://docs.z.ai/scenario-example/develop-tools/claude)
 
