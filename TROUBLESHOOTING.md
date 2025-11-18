@@ -478,9 +478,7 @@ Jika muncul versi (contoh: `2.0.14`), berarti sudah berhasil!
    ```powershell
    del $env:USERPROFILE\.claude\settings.json
    ```
-6. Tutup terminal, buka terminal baru, masuk ke folder project, jalankan `claude`.
-
-> **English recap:** `/exit` or `Ctrl+C`, run `claude logout`, close terminals, reopen PowerShell, ensure `ANTHROPIC_AUTH_TOKEN` & `ANTHROPIC_BASE_URL` point to Z.AI, delete `~/.claude/settings.json` if needed, then relaunch `claude`.
+6. Tutup terminal, buka terminal baru, masuk ke folder project, jalankan `claude`
 
 ---
 
