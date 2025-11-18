@@ -459,26 +459,26 @@ Jika muncul versi (contoh: `2.0.14`), berarti sudah berhasil!
 
 ---
 
-## ℹ️ Catatan: Keluar dari API Claude Asli & Kembali ke Z.AI
+## ℹ️ Catatan: Keluar dari API Claude
 
 1. Di terminal Claude Code yang sedang aktif, ketik `/exit` atau tekan `Ctrl+C` untuk menutup sesi.
 2. Jalankan `claude logout` agar token bawaan Anthropic dihapus.
 3. Tutup semua terminal VS Code, lalu buka PowerShell baru.
-4. Pastikan environment variable Z.AI aktif:
+4. Pastikan environment variable aktif:
    ```powershell
    echo $env:ANTHROPIC_AUTH_TOKEN
    echo $env:ANTHROPIC_BASE_URL
    ```
    - Jika kosong, set ulang:
      ```cmd
-     setx ANTHROPIC_AUTH_TOKEN your_zai_api_key
+     setx ANTHROPIC_AUTH_TOKEN your_api_key
      setx ANTHROPIC_BASE_URL https://api.z.ai/api/anthropic
      ```
 5. (Opsional) Hapus konfigurasi lama agar CLI membaca env vars baru:
    ```powershell
    del $env:USERPROFILE\.claude\settings.json
    ```
-6. Tutup terminal, buka terminal baru, masuk ke folder project, jalankan `claude`. Sekarang CLI memakai endpoint Z.AI.
+6. Tutup terminal, buka terminal baru, masuk ke folder project, jalankan `claude`.
 
 > **English recap:** `/exit` or `Ctrl+C`, run `claude logout`, close terminals, reopen PowerShell, ensure `ANTHROPIC_AUTH_TOKEN` & `ANTHROPIC_BASE_URL` point to Z.AI, delete `~/.claude/settings.json` if needed, then relaunch `claude`.
 
