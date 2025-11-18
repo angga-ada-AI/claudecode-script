@@ -290,14 +290,14 @@ setx ANTHROPIC_BASE_URL https://api.z.ai/api/anthropic
 ### Claude Code Dialihkan ke Anthropic Console (Login)
 
 **Error:** 
-Setelah memilih opsi "2. Anthropic Console account · API usage billing", Claude Code membuka browser dan mengarahkan ke halaman login Anthropic Console, padahal kita ingin menggunakan API key Z.AI.
+Setelah memilih opsi "2. Anthropic Console account · API usage billing", Claude Code membuka browser dan mengarahkan ke halaman login Anthropic Console, padahal kita ingin menggunakan API key yang sudah di setting di environment variables.
 
 **Penyebab:**
-Claude Code secara default akan mencoba login ke Anthropic Console untuk mendapatkan API key resmi Anthropic. Karena kita ingin menggunakan Z.AI (API kompatibel, bukan akun Anthropic), login tersebut tidak diperlukan.
+Claude Code secara default akan mencoba login ke Anthropic Console untuk mendapatkan API key Anthropic. Karena kita menggunakan API key yang sudah di setting di environment variables login tersebut tidak diperlukan.
 
 **Solusi: Buat/Edit File Settings.json**
 
-Agar Claude Code langsung menggunakan environment variables Z.AI tanpa login Anthropic, buat atau edit file `~/.claude/settings.json`:
+Agar Claude Code langsung menggunakan environment variables tanpa login Anthropic, buat atau edit file `~/.claude/settings.json`:
 
 **Windows:**
 ```powershell
@@ -315,7 +315,7 @@ New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude"
 "@ | Out-File -FilePath "$env:USERPROFILE\.claude\settings.json" -Encoding utf8
 ```
 
-**Catatan:** Ganti `your_zai_api_key` dengan API key Z.AI Anda yang sebenarnya.
+**Catatan:** Ganti `your_api_key` dengan API key Anda yang sebenarnya.
 
 **Mac/Linux:**
 ```bash
@@ -333,7 +333,7 @@ cat > ~/.claude/settings.json << 'EOF'
 EOF
 ```
 
-**Catatan:** Ganti `your_zai_api_key` dengan API key Z.AI Anda yang sebenarnya.
+**Catatan:** Ganti `your_api_key` dengan API key Anda yang sebenarnya.
 
 **Setelah membuat file settings.json:**
 
@@ -347,13 +347,13 @@ Jika tidak ingin membuat file settings.json, pastikan environment variables suda
 
 **Windows:**
 ```cmd
-setx ANTHROPIC_AUTH_TOKEN your_zai_api_key
+setx ANTHROPIC_AUTH_TOKEN your_api_key
 setx ANTHROPIC_BASE_URL https://api.z.ai/api/anthropic
 ```
 
 **Mac/Linux:**
 ```bash
-export ANTHROPIC_AUTH_TOKEN=your_zai_api_key
+export ANTHROPIC_AUTH_TOKEN=your_api_key
 export ANTHROPIC_BASE_URL=https://api.z.ai/api/anthropic
 ```
 
