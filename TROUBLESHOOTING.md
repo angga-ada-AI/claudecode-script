@@ -462,7 +462,7 @@ Jika muncul versi (contoh: `2.0.14`), berarti sudah berhasil!
 ## ℹ️ Catatan: Keluar dari API Claude
 
 1. Di terminal Claude Code yang sedang aktif, ketik `/exit` atau tekan `Ctrl+C` untuk menutup sesi.
-2. Jalankan `claude logout` agar token bawaan Anthropic dihapus.
+2. Jalankan `claude logout` agar token sebelumnya dihapus.
 3. Tutup semua terminal VS Code, lalu buka PowerShell baru.
 4. Pastikan environment variable aktif:
    ```powershell
