@@ -12,6 +12,7 @@ Panduan lengkap untuk mengatasi berbagai error yang mungkin terjadi saat install
 - [Error Konfigurasi](#-error-konfigurasi)
   - [Konfigurasi tidak bekerja](#konfigurasi-tidak-bekerja)
   - [Script Tidak Bisa Dijalankan](#script-tidak-bisa-dijalankan-execution-policy-error)
+  - [Claude Code Dialihkan ke Anthropic Console](#claude-code-dialihkan-ke-anthropic-console-login)
 - [Error Runtime](#-error-runtime)
   - [Claude Code requires git-bash](#error-claude-code-on-windows-requires-git-bash)
   - [Claude Code tidak bisa akses file](#claude-code-tidak-bisa-akses-file)
@@ -283,6 +284,83 @@ setx ANTHROPIC_BASE_URL https://api.z.ai/api/anthropic
 - ✅ **Folder location tidak masalah** - Script bisa di `C:\`, `D:\`, atau folder manapun
 - ⚠️ **Administrator diperlukan** untuk mengubah execution policy (Solusi 1)
 - ✅ **Cara manual (`setx`)** tidak memerlukan execution policy atau administrator
+
+---
+
+### Claude Code Dialihkan ke Anthropic Console (Login)
+
+**Error:** 
+Setelah memilih opsi "2. Anthropic Console account · API usage billing", Claude Code membuka browser dan mengarahkan ke halaman login Anthropic Console, padahal kita ingin menggunakan API key Z.AI.
+
+**Penyebab:**
+Claude Code secara default akan mencoba login ke Anthropic Console untuk mendapatkan API key resmi Anthropic. Karena kita ingin menggunakan Z.AI (API kompatibel, bukan akun Anthropic), login tersebut tidak diperlukan.
+
+**Solusi: Buat/Edit File Settings.json**
+
+Agar Claude Code langsung menggunakan environment variables Z.AI tanpa login Anthropic, buat atau edit file `~/.claude/settings.json`:
+
+**Windows:**
+```powershell
+# Buat folder jika belum ada
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude"
+
+# Buat/edit file settings.json
+@"
+{
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "your_zai_api_key",
+    "ANTHROPIC_BASE_URL": "https://api.z.ai/api/anthropic"
+  }
+}
+"@ | Out-File -FilePath "$env:USERPROFILE\.claude\settings.json" -Encoding utf8
+```
+
+**Catatan:** Ganti `your_zai_api_key` dengan API key Z.AI Anda yang sebenarnya.
+
+**Mac/Linux:**
+```bash
+# Buat folder jika belum ada
+mkdir -p ~/.claude
+
+# Buat/edit file settings.json
+cat > ~/.claude/settings.json << 'EOF'
+{
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "your_zai_api_key",
+    "ANTHROPIC_BASE_URL": "https://api.z.ai/api/anthropic"
+  }
+}
+EOF
+```
+
+**Catatan:** Ganti `your_zai_api_key` dengan API key Z.AI Anda yang sebenarnya.
+
+**Setelah membuat file settings.json:**
+
+1. **Tutup/Decline** halaman login Anthropic Console (jika masih terbuka)
+2. **Tutup terminal** dan buka terminal baru
+3. **Jalankan `claude` lagi** - CLI akan langsung menggunakan API key dari settings.json tanpa perlu login
+
+**Alternatif: Gunakan Environment Variables Saja**
+
+Jika tidak ingin membuat file settings.json, pastikan environment variables sudah di-set dengan benar:
+
+**Windows:**
+```cmd
+setx ANTHROPIC_AUTH_TOKEN your_zai_api_key
+setx ANTHROPIC_BASE_URL https://api.z.ai/api/anthropic
+```
+
+**Mac/Linux:**
+```bash
+export ANTHROPIC_AUTH_TOKEN=your_zai_api_key
+export ANTHROPIC_BASE_URL=https://api.z.ai/api/anthropic
+```
+
+**Catatan Penting:**
+- ✅ File `settings.json` akan membuat Claude Code langsung menggunakan API key tanpa login
+- ✅ Environment variables juga bisa digunakan, tapi harus di-set setiap kali buka terminal baru (kecuali menggunakan `setx` di Windows)
+- ✅ Jika sudah membuat `settings.json`, tidak perlu login ke Anthropic Console lagi
 
 ---
 
