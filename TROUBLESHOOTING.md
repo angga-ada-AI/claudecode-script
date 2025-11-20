@@ -18,6 +18,7 @@ Panduan lengkap untuk mengatasi berbagai error yang mungkin terjadi saat install
   - [Claude Code tidak bisa akses file](#claude-code-tidak-bisa-akses-file)
   - [claude: command not found](#error-claude-command-not-found)
   - [Error Rate Limit Exceeded](#error-rate-limit-exceeded)
+  - [Error Auto-update failed](#error-auto-update-failed)
 
 ---
 
@@ -534,6 +535,66 @@ Jika muncul versi (contoh: `2.0.14`), berarti sudah berhasil!
 - Tunggu beberapa detik, lalu coba lagi
 - Jangan spam chat (tunggu response selesai sebelum kirim berikutnya)
 - Lihat [`PENJELASAN_RATE_LIMIT.md`](PENJELASAN_RATE_LIMIT.md) untuk penjelasan lengkap
+
+---
+
+### Error "Auto-update failed"
+
+**Error:**
+```
+X Auto-update failed · Try claude doctor or npm i -g @anthropic-ai/claude-code
+```
+
+**Penyebab:**
+- Claude Code gagal melakukan auto-update ke versi terbaru
+- Biasanya disebabkan oleh masalah koneksi internet, permission, atau masalah dengan npm registry
+
+**Solusi 1: Jalankan claude doctor (Direkomendasikan)**
+
+Jalankan command berikut untuk diagnosa masalah:
+
+```powershell
+claude doctor
+```
+
+Command ini akan menampilkan informasi tentang:
+- Versi Claude Code yang terinstall
+- Status environment variables
+- Masalah yang terdeteksi
+- Saran perbaikan
+
+**Solusi 2: Install Ulang Claude Code**
+
+Jika `claude doctor` tidak membantu, install ulang Claude Code:
+
+```powershell
+npm install -g @anthropic-ai/claude-code
+```
+
+**Catatan:** 
+- Jika muncul error `npm is not recognized`, lihat bagian [Error "npm is not recognized"](#error-npm-is-not-recognized)
+- Jika muncul error network, lihat bagian [Error Network/Connection (ENOTFOUND)](#error-networkconnection-enotfound)
+
+**Solusi 3: Install dengan Versi Spesifik**
+
+Jika auto-update terus gagal, install versi spesifik yang stabil:
+
+```powershell
+npm install -g @anthropic-ai/claude-code@latest
+```
+
+**Solusi 4: Cek Koneksi Internet**
+
+Auto-update memerlukan koneksi internet. Pastikan:
+- Internet terhubung dengan baik
+- Tidak ada firewall yang memblokir npm registry
+- DNS bisa resolve `registry.npmjs.org`
+
+**Catatan Penting:**
+- ✅ Error ini **tidak menghalangi** penggunaan Claude Code - Anda masih bisa menggunakan versi yang terinstall
+- ✅ Auto-update adalah fitur opsional untuk mendapatkan versi terbaru
+- ✅ Jika tidak urgent, bisa diabaikan dan update manual nanti
+- ⚠️ Jika error terus muncul, kemungkinan ada masalah dengan instalasi atau koneksi
 
 ---
 
