@@ -19,6 +19,7 @@ Panduan lengkap untuk mengatasi berbagai error yang mungkin terjadi saat install
   - [claude: command not found](#error-claude-command-not-found)
   - [Error Rate Limit Exceeded](#error-rate-limit-exceeded)
   - [Error Auto-update failed](#error-auto-update-failed)
+  - [Error 401 Invalid bearer token](#error-401-invalid-bearer-token)
 
 ---
 
@@ -595,6 +596,116 @@ Auto-update memerlukan koneksi internet. Pastikan:
 - ✅ Auto-update adalah fitur opsional untuk mendapatkan versi terbaru
 - ✅ Jika tidak urgent, bisa diabaikan dan update manual nanti
 - ⚠️ Jika error terus muncul, kemungkinan ada masalah dengan instalasi atau koneksi
+
+---
+
+### Error "401 Invalid bearer token"
+
+**Error:**
+```
+LAPI Error: 401
+{"type": "error", "error":{"type": "authentication_error", "message": "Invalid bearer token"}, "request_id":"req_..."}
+Please run /login
+```
+
+**Penyebab:**
+- API key tidak ditemukan atau tidak valid
+- API key salah atau sudah expired
+- Claude Code tidak membaca environment variables atau settings.json dengan benar
+- Konfigurasi API key tidak sesuai dengan endpoint yang digunakan
+
+**Solusi 1: Cek Environment Variables**
+
+Pastikan environment variables sudah di-set dengan benar:
+
+**Windows PowerShell:**
+```powershell
+echo $env:ANTHROPIC_AUTH_TOKEN
+echo $env:ANTHROPIC_BASE_URL
+```
+
+**Jika kosong atau salah**, set ulang:
+
+**Windows (CMD atau PowerShell):**
+```cmd
+setx ANTHROPIC_AUTH_TOKEN your_api_key
+setx ANTHROPIC_BASE_URL https://api.z.ai/api/anthropic
+```
+
+**Catatan:** Ganti `your_api_key` dengan API key Z.AI Anda yang sebenarnya.
+
+**Setelah set ulang:**
+1. **Tutup semua terminal/Claude Code**
+2. **Buka terminal baru**
+3. **Jalankan `claude` lagi**
+
+**Solusi 2: Cek dan Perbaiki File settings.json**
+
+Jika environment variables sudah benar tapi masih error, cek file `~/.claude/settings.json`:
+
+**Windows:**
+```powershell
+# Baca isi file settings.json
+Get-Content $env:USERPROFILE\.claude\settings.json
+```
+
+**Jika file tidak ada atau isinya salah**, buat/edit file:
+
+**Windows:**
+```powershell
+# Buat folder jika belum ada
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude"
+
+# Buat/edit file settings.json
+@"
+{
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "your_api_key",
+    "ANTHROPIC_BASE_URL": "https://api.z.ai/api/anthropic"
+  }
+}
+"@ | Out-File -FilePath "$env:USERPROFILE\.claude\settings.json" -Encoding utf8
+```
+
+**Catatan:** Ganti `your_api_key` dengan API key Anda yang sebenarnya.
+
+**Setelah membuat/edit file:**
+1. **Tutup semua terminal/Claude Code**
+2. **Buka terminal baru**
+3. **Jalankan `claude` lagi**
+
+**Solusi 3: Hapus Konfigurasi Lama dan Setup Ulang**
+
+Jika masih error, hapus konfigurasi lama dan setup ulang:
+
+**Windows:**
+```powershell
+# Hapus file settings.json
+del $env:USERPROFILE\.claude\settings.json
+
+# Set environment variables ulang
+setx ANTHROPIC_AUTH_TOKEN your_api_key
+setx ANTHROPIC_BASE_URL https://api.z.ai/api/anthropic
+```
+
+**Setelah itu:**
+1. **Tutup semua terminal**
+2. **Buka terminal baru**
+3. **Jalankan `claude` lagi**
+
+**Solusi 4: Verifikasi API Key**
+
+Pastikan API key yang digunakan adalah API key yang valid:
+
+1. **Pastikan tidak ada spasi** di awal atau akhir API key saat copy-paste
+2. **Pastikan API key lengkap** (tidak terpotong)
+
+**Catatan Penting:**
+- ✅ Error 401 berarti **authentication gagal** - API key tidak valid atau tidak ditemukan
+- ✅ **Environment variables** harus di-set dengan `setx` di Windows agar permanen
+- ✅ **File `settings.json`** akan override environment variables jika ada
+- ✅ **Restart terminal** sangat penting setelah mengubah environment variables atau settings.json
+- ⚠️ Jika masih error setelah semua solusi, kemungkinan API key tidak valid atau sudah expired
 
 ---
 
