@@ -128,9 +128,30 @@ Buka file `settings.json` dan tambahkan:
 
 **Opsi 1: Menggunakan VS Code Extension (Direkomendasikan)**
 
-1. **Buka VS Code** di folder project Anda
-2. **Klik ikon Claude Code** di sidebar kiri (atau tekan `Ctrl+Shift+P` dan ketik "Claude Code")
-3. **Mulai chat** dengan Claude langsung di panel VS Code! 🎉
+**⚠️ PENTING:** Setelah konfigurasi, **jangan** menjalankan `claude` di terminal. Gunakan VS Code Extension panel di sidebar.
+
+**Cara membuka VS Code Extension panel:**
+
+1. **Pastikan VS Code sudah di-reload** setelah konfigurasi settings.json
+   - Tekan `Ctrl+Shift+P` (Windows/Linux) atau `Cmd+Shift+P` (Mac)
+   - Ketik: `Developer: Reload Window`
+   - Atau tutup dan buka VS Code lagi
+
+2. **Buka Claude Code Extension panel:**
+   - **Cara 1:** Klik ikon **Claude Code** (ikon orange dengan starburst) di **sidebar kiri** VS Code
+   - **Cara 2:** Tekan `Ctrl+Shift+P` (Windows/Linux) atau `Cmd+Shift+P` (Mac), ketik `Claude Code: Open` atau `Claude Code: Focus`
+   - **Cara 3:** Klik menu **View** → **Open View...** → cari "Claude Code"
+
+3. **Panel Claude Code akan muncul di sidebar** (bukan di terminal!)
+   - Panel akan menampilkan chat interface dengan Claude
+   - Bisa langsung mulai chat tanpa perlu menjalankan command di terminal
+
+4. **Mulai chat** dengan Claude langsung di panel VS Code! 🎉
+
+**Catatan:**
+- ✅ VS Code Extension panel = Interface chat di sidebar VS Code (seperti screenshot extension)
+- ❌ CLI di terminal = Interface chat di terminal (yang muncul saat menjalankan `claude` command)
+- Jika Anda melihat interface di terminal, berarti Anda menggunakan CLI, bukan Extension panel
 
 **Opsi 2: Menggunakan CLI di Terminal**
 
@@ -252,9 +273,30 @@ Buka file `settings.json` dan tambahkan:
 
 **Opsi 1: Menggunakan VS Code Extension (Direkomendasikan)**
 
-1. **Buka VS Code** di folder project Anda
-2. **Klik ikon Claude Code** di sidebar kiri (atau tekan `Ctrl+Shift+P` / `Cmd+Shift+P` dan ketik "Claude Code")
-3. **Mulai chat** dengan Claude langsung di panel VS Code! 🎉
+**⚠️ PENTING:** Setelah konfigurasi, **jangan** menjalankan `claude` di terminal. Gunakan VS Code Extension panel di sidebar.
+
+**Cara membuka VS Code Extension panel:**
+
+1. **Pastikan VS Code sudah di-reload** setelah konfigurasi settings.json
+   - Tekan `Ctrl+Shift+P` (Linux) atau `Cmd+Shift+P` (Mac)
+   - Ketik: `Developer: Reload Window`
+   - Atau tutup dan buka VS Code lagi
+
+2. **Buka Claude Code Extension panel:**
+   - **Cara 1:** Klik ikon **Claude Code** (ikon orange dengan starburst) di **sidebar kiri** VS Code
+   - **Cara 2:** Tekan `Ctrl+Shift+P` (Linux) atau `Cmd+Shift+P` (Mac), ketik `Claude Code: Open` atau `Claude Code: Focus`
+   - **Cara 3:** Klik menu **View** → **Open View...** → cari "Claude Code"
+
+3. **Panel Claude Code akan muncul di sidebar** (bukan di terminal!)
+   - Panel akan menampilkan chat interface dengan Claude
+   - Bisa langsung mulai chat tanpa perlu menjalankan command di terminal
+
+4. **Mulai chat** dengan Claude langsung di panel VS Code! 🎉
+
+**Catatan:**
+- ✅ VS Code Extension panel = Interface chat di sidebar VS Code (seperti screenshot extension)
+- ❌ CLI di terminal = Interface chat di terminal (yang muncul saat menjalankan `claude` command)
+- Jika Anda melihat interface di terminal, berarti Anda menggunakan CLI, bukan Extension panel
 
 **Opsi 2: Menggunakan CLI di Terminal**
 
