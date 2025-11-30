@@ -180,8 +180,6 @@ Semua terminal kirim chat bersamaan
 
 ---
 
-## 📊 Limit Z.AI Lite Plan: 120 Prompts per 5 Jam
-
 ### 🎯 Informasi Limit Paket
 
 **Paket Lite: Hingga ~120 perintah setiap 5 jam — sekitar 3× kuota penggunaan paket Claude Pro**
@@ -216,11 +214,8 @@ Semua terminal kirim chat bersamaan
 
 ## ❌ Keterbatasan: Tidak Ada Metode Langsung untuk Cek Jumlah Prompt
 
-**Menurut dokumentasi resmi Z.AI:**
 
 > "Saat ini **tidak tersedia metode langsung** untuk memeriksa jumlah prompt yang telah digunakan dalam periode 5 jam tersebut."
-
-**Referensi:** [Z.AI Documentation](https://docs.z.ai/guides/overview/concept-param)
 
 **Ini berarti:**
 - ❌ Tidak ada command di Claude Code CLI untuk menampilkan jumlah prompt
@@ -314,8 +309,6 @@ Total keseluruhan: ~102,451 tokens
 ```
 
 ---
-
-**📊 Estimasi untuk 120 Prompts (Limit Z.AI Lite Plan):**
 
 **⚠️ PENTING:** Estimasi ini **TIDAK AKURAT 100%** karena setiap prompt berbeda panjangnya. Gunakan hanya sebagai **referensi kasar**.
 
