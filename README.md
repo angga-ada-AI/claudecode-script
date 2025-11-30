@@ -43,34 +43,96 @@ npm install -g @anthropic-ai/claude-code
 
 **Catatan:** Jika muncul error permission, jalankan PowerShell sebagai Administrator.
 
-#### Step 2: Setup Konfigurasi
+#### Step 2: Install Extension Claude Code for VS Code
 
-**Cara Sederhana (Manual):**
+**Jika belum terinstall**, install extension **Claude Code** di VS Code:
 
-Ganti `your_api_key` dengan API key Anda yang sebenarnya (tanpa tanda kutip), lalu jalankan:
+1. **Buka VS Code Extensions:**
+   - Tekan `Ctrl+Shift+X` (Windows/Linux) atau `Cmd+Shift+X` (Mac)
+   - Atau klik ikon **Extensions** di sidebar kiri
 
-```cmd
-setx ANTHROPIC_AUTH_TOKEN your_api_key
-setx ANTHROPIC_BASE_URL https://api.z.ai/api/anthropic
+2. **Cari "Claude Code":**
+   - Di search box, ketik: `Claude Code`
+   - Pilih extension **"Claude Code"** oleh Anthropic
+   - Klik **Install**
+
+3. **Tunggu hingga instalasi selesai**
+
+#### Step 3: Setup Konfigurasi VS Code Extension
+
+Setelah extension terinstall, konfigurasi environment variables di VS Code settings:
+
+**Cara 1: Melalui VS Code Settings UI**
+
+1. **Buka VS Code Settings:**
+   - Tekan `Ctrl+,` (Windows/Linux) atau `Cmd+,` (Mac)
+   - Atau klik **File** → **Preferences** → **Settings**
+
+2. **Cari "Claude Code: Environment Variables":**
+   - Di search box, ketik: `claudeCode.environmentVariables`
+   - Klik **"Edit in settings.json"** di bagian bawah deskripsi
+
+3. **Tambahkan konfigurasi berikut:**
+
+Buka file `settings.json` dan tambahkan:
+
+```json
+{
+  "claudeCode.disableLoginPrompt": false,
+  "claudeCode.environmentVariables": [
+    {
+      "name": "ANTHROPIC_BASE_URL",
+      "value": "https://api.z.ai/api/anthropic"
+    },
+    {
+      "name": "ANTHROPIC_AUTH_TOKEN",
+      "value": "your_api_key"
+    },
+    {
+      "name": "CLAUDE_CODE_SKIP_AUTH_LOGIN",
+      "value": "true"
+    }
+  ]
+}
 ```
 
-**Catatan Penting:**
-- Setelah `setx`, tutup terminal dan buka terminal baru agar environment variables aktif
-- `setx` tidak menampilkan output - itu normal, asalkan tidak ada error
+**Catatan:** 
+- Ganti `your_api_key` dengan API key Anda yang sebenarnya
+- `CLAUDE_CODE_SKIP_AUTH_LOGIN: "true"` akan melewati prompt login dan langsung menggunakan API key dari environment variables
 
-**Atau gunakan Script Otomatis (Opsional):**
+**Cara 2: Edit Langsung File settings.json**
 
-```powershell
-.\setup-claude-code-windows-simple.ps1
-```
+1. **Buka Command Palette:**
+   - Tekan `Ctrl+Shift+P` (Windows/Linux) atau `Cmd+Shift+P` (Mac)
+   - Ketik: `Preferences: Open User Settings (JSON)`
+   - Atau untuk workspace: `Preferences: Open Workspace Settings (JSON)`
 
-Script ini akan:
-- Cek apakah Node.js dan Claude Code sudah terinstall
-- Install otomatis jika belum ada
-- Meminta input API key Anda
-- Menjalankan `setx` secara otomatis
+2. **Tambahkan konfigurasi** seperti di atas
 
-#### Step 3: Mulai Menggunakan
+3. **Simpan file** (`Ctrl+S` atau `Cmd+S`)
+
+4. **Reload VS Code:**
+   - Tekan `Ctrl+Shift+P` (Windows/Linux) atau `Cmd+Shift+P` (Mac)
+   - Ketik: `Developer: Reload Window`
+   - Atau tutup dan buka VS Code lagi
+
+**Setelah konfigurasi:**
+- ✅ Claude Code extension akan langsung menggunakan API
+- ✅ Tidak akan muncul prompt login
+- ✅ Extension akan tampil di sidebar (panel Claude)
+- ✅ Bisa langsung chat dengan Claude di VS Code
+
+📄 **Untuk troubleshooting lengkap**, lihat: [`TROUBLESHOOTING.md` - Setup Claude Code Extension untuk VS Code](TROUBLESHOOTING.md#setup-claude-code-extension-untuk-vs-code)
+
+#### Step 4: Mulai Menggunakan
+
+**Opsi 1: Menggunakan VS Code Extension (Direkomendasikan)**
+
+1. **Buka VS Code** di folder project Anda
+2. **Klik ikon Claude Code** di sidebar kiri (atau tekan `Ctrl+Shift+P` dan ketik "Claude Code")
+3. **Mulai chat** dengan Claude langsung di panel VS Code! 🎉
+
+**Opsi 2: Menggunakan CLI di Terminal**
 
 1. **Tutup terminal saat ini dan buka terminal baru** (penting! agar environment variables aktif)
 
@@ -105,20 +167,96 @@ npm install -g @anthropic-ai/claude-code
 sudo npm install -g @anthropic-ai/claude-code
 ```
 
-#### Step 2: Setup Konfigurasi Otomatis
+#### Step 2: Install Extension Claude Code for VS Code
 
-Jalankan script otomatis :
+**Jika belum terinstall**, install extension **Claude Code** di VS Code:
 
-```bash
-curl -O "https://cdn.bigmodel.cn/install/claude_code_zai_env.sh" && bash ./claude_code_zai_env.sh
+1. **Buka VS Code Extensions:**
+   - Tekan `Ctrl+Shift+X` (Linux) atau `Cmd+Shift+X` (Mac)
+   - Atau klik ikon **Extensions** di sidebar kiri
+
+2. **Cari "Claude Code":**
+   - Di search box, ketik: `Claude Code`
+   - Pilih extension **"Claude Code"** oleh Anthropic
+   - Klik **Install**
+
+3. **Tunggu hingga instalasi selesai**
+
+#### Step 3: Setup Konfigurasi VS Code Extension
+
+Setelah extension terinstall, konfigurasi environment variables di VS Code settings:
+
+**Cara 1: Melalui VS Code Settings UI**
+
+1. **Buka VS Code Settings:**
+   - Tekan `Ctrl+,` (Linux) atau `Cmd+,` (Mac)
+   - Atau klik **File** → **Preferences** → **Settings**
+
+2. **Cari "Claude Code: Environment Variables":**
+   - Di search box, ketik: `claudeCode.environmentVariables`
+   - Klik **"Edit in settings.json"** di bagian bawah deskripsi
+
+3. **Tambahkan konfigurasi berikut:**
+
+Buka file `settings.json` dan tambahkan:
+
+```json
+{
+  "claudeCode.disableLoginPrompt": false,
+  "claudeCode.environmentVariables": [
+    {
+      "name": "ANTHROPIC_BASE_URL",
+      "value": "https://api.z.ai/api/anthropic"
+    },
+    {
+      "name": "ANTHROPIC_AUTH_TOKEN",
+      "value": "your_api_key"
+    },
+    {
+      "name": "CLAUDE_CODE_SKIP_AUTH_LOGIN",
+      "value": "true"
+    }
+  ]
+}
 ```
 
-Script ini akan:
-- Membuat folder `~/.claude` jika belum ada
-- Membuat/update file `~/.claude/settings.json`
-- Meminta input API key Anda
+**Catatan:** 
+- Ganti `your_api_key` dengan API key Anda yang sebenarnya
+- `CLAUDE_CODE_SKIP_AUTH_LOGIN: "true"` akan melewati prompt login dan langsung menggunakan API key dari environment variables
 
-#### Step 3: Mulai Menggunakan
+**Cara 2: Edit Langsung File settings.json**
+
+1. **Buka Command Palette:**
+   - Tekan `Ctrl+Shift+P` (Linux) atau `Cmd+Shift+P` (Mac)
+   - Ketik: `Preferences: Open User Settings (JSON)`
+   - Atau untuk workspace: `Preferences: Open Workspace Settings (JSON)`
+
+2. **Tambahkan konfigurasi** seperti di atas
+
+3. **Simpan file** (`Ctrl+S` atau `Cmd+S`)
+
+4. **Reload VS Code:**
+   - Tekan `Ctrl+Shift+P` (Linux) atau `Cmd+Shift+P` (Mac)
+   - Ketik: `Developer: Reload Window`
+   - Atau tutup dan buka VS Code lagi
+
+**Setelah konfigurasi:**
+- ✅ Claude Code extension akan langsung menggunakan API
+- ✅ Tidak akan muncul prompt login
+- ✅ Extension akan tampil di sidebar (panel Claude)
+- ✅ Bisa langsung chat dengan Claude di VS Code
+
+📄 **Untuk troubleshooting lengkap**, lihat: [`TROUBLESHOOTING.md` - Setup Claude Code Extension untuk VS Code](TROUBLESHOOTING.md#setup-claude-code-extension-untuk-vs-code)
+
+#### Step 4: Mulai Menggunakan
+
+**Opsi 1: Menggunakan VS Code Extension (Direkomendasikan)**
+
+1. **Buka VS Code** di folder project Anda
+2. **Klik ikon Claude Code** di sidebar kiri (atau tekan `Ctrl+Shift+P` / `Cmd+Shift+P` dan ketik "Claude Code")
+3. **Mulai chat** dengan Claude langsung di panel VS Code! 🎉
+
+**Opsi 2: Menggunakan CLI di Terminal**
 
 ```bash
 cd your-project-directory

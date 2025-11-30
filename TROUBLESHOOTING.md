@@ -20,6 +20,8 @@ Panduan lengkap untuk mengatasi berbagai error yang mungkin terjadi saat install
   - [Error Rate Limit Exceeded](#error-rate-limit-exceeded)
   - [Error Auto-update failed](#error-auto-update-failed)
   - [Error 401 Invalid bearer token](#error-401-invalid-bearer-token)
+- [Konfigurasi VS Code Extension](#-konfigurasi-vs-code-extension)
+  - [Setup Claude Code Extension untuk VS Code](#setup-claude-code-extension-untuk-vs-code)
 
 ---
 
@@ -624,6 +626,12 @@ echo $env:ANTHROPIC_AUTH_TOKEN
 echo $env:ANTHROPIC_BASE_URL
 ```
 
+**Mac/Linux:**
+```bash
+echo $ANTHROPIC_AUTH_TOKEN
+echo $ANTHROPIC_BASE_URL
+```
+
 **Jika kosong atau salah**, set ulang:
 
 **Windows (CMD atau PowerShell):**
@@ -632,7 +640,28 @@ setx ANTHROPIC_AUTH_TOKEN your_api_key
 setx ANTHROPIC_BASE_URL https://api.z.ai/api/anthropic
 ```
 
-**Catatan:** Ganti `your_api_key` dengan API key Z.AI Anda yang sebenarnya.
+**Mac/Linux:**
+
+Untuk membuat environment variables permanen, tambahkan ke file `~/.bashrc` atau `~/.zshrc` (tergantung shell yang digunakan):
+
+```bash
+# Buka file dengan editor (pilih salah satu sesuai shell Anda)
+nano ~/.bashrc
+# atau
+nano ~/.zshrc
+
+# Tambahkan baris berikut di akhir file:
+export ANTHROPIC_AUTH_TOKEN=your_api_key
+export ANTHROPIC_BASE_URL=https://api.z.ai/api/anthropic
+
+# Simpan dan keluar (Ctrl+X, lalu Y, lalu Enter untuk nano)
+# Reload shell configuration:
+source ~/.bashrc
+# atau
+source ~/.zshrc
+```
+
+**Catatan:** Ganti `your_api_key` dengan API key Anda yang sebenarnya.
 
 **Setelah set ulang:**
 1. **Tutup semua terminal/Claude Code**
@@ -647,6 +676,12 @@ Jika environment variables sudah benar tapi masih error, cek file `~/.claude/set
 ```powershell
 # Baca isi file settings.json
 Get-Content $env:USERPROFILE\.claude\settings.json
+```
+
+**Mac/Linux:**
+```bash
+# Baca isi file settings.json
+cat ~/.claude/settings.json
 ```
 
 **Jika file tidak ada atau isinya salah**, buat/edit file:
@@ -665,6 +700,22 @@ New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude"
   }
 }
 "@ | Out-File -FilePath "$env:USERPROFILE\.claude\settings.json" -Encoding utf8
+```
+
+**Mac/Linux:**
+```bash
+# Buat folder jika belum ada
+mkdir -p ~/.claude
+
+# Buat/edit file settings.json
+cat > ~/.claude/settings.json << 'EOF'
+{
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "your_api_key",
+    "ANTHROPIC_BASE_URL": "https://api.z.ai/api/anthropic"
+  }
+}
+EOF
 ```
 
 **Catatan:** Ganti `your_api_key` dengan API key Anda yang sebenarnya.
@@ -688,6 +739,23 @@ setx ANTHROPIC_AUTH_TOKEN your_api_key
 setx ANTHROPIC_BASE_URL https://api.z.ai/api/anthropic
 ```
 
+**Mac/Linux:**
+```bash
+# Hapus file settings.json
+rm ~/.claude/settings.json
+
+# Set environment variables ulang (tambahkan ke ~/.bashrc atau ~/.zshrc)
+echo 'export ANTHROPIC_AUTH_TOKEN=your_api_key' >> ~/.bashrc
+echo 'export ANTHROPIC_BASE_URL=https://api.z.ai/api/anthropic' >> ~/.bashrc
+
+# Reload shell configuration
+source ~/.bashrc
+```
+
+**Catatan:** 
+- Untuk Mac/Linux, jika menggunakan zsh, ganti `~/.bashrc` dengan `~/.zshrc`
+- Ganti `your_api_key` dengan API key Anda yang sebenarnya
+
 **Setelah itu:**
 1. **Tutup semua terminal**
 2. **Buka terminal baru**
@@ -702,10 +770,107 @@ Pastikan API key yang digunakan adalah API key yang valid:
 
 **Catatan Penting:**
 - ✅ Error 401 berarti **authentication gagal** - API key tidak valid atau tidak ditemukan
-- ✅ **Environment variables** harus di-set dengan `setx` di Windows agar permanen
+- ✅ **Environment variables** harus di-set dengan `setx` di Windows atau ditambahkan ke `~/.bashrc`/`~/.zshrc` di Mac/Linux agar permanen
 - ✅ **File `settings.json`** akan override environment variables jika ada
 - ✅ **Restart terminal** sangat penting setelah mengubah environment variables atau settings.json
 - ⚠️ Jika masih error setelah semua solusi, kemungkinan API key tidak valid atau sudah expired
+- ⚠️ Di Mac/Linux, pastikan menggunakan shell yang benar (`bash` atau `zsh`) saat menambahkan environment variables
+
+---
+
+## 🔧 Konfigurasi VS Code Extension
+
+### Setup Claude Code Extension untuk VS Code
+
+Untuk menggunakan **Claude Code extension** di VS Code dengan API, Anda perlu mengkonfigurasi environment variables di VS Code settings.
+
+**Cara 1: Melalui VS Code Settings UI**
+
+1. **Buka VS Code Settings:**
+   - Tekan `Ctrl+,` (Windows/Linux) atau `Cmd+,` (Mac)
+   - Atau klik **File** → **Preferences** → **Settings**
+
+2. **Cari "Claude Code: Environment Variables":**
+   - Di search box, ketik: `claudeCode.environmentVariables`
+   - Klik **"Edit in settings.json"** di bagian bawah deskripsi
+
+3. **Tambahkan konfigurasi berikut:**
+
+**Windows/Mac/Linux:**
+
+Buka file `settings.json` (User Settings atau Workspace Settings) dan tambahkan:
+
+```json
+{
+  "claudeCode.disableLoginPrompt": false,
+  "claudeCode.environmentVariables": [
+    {
+      "name": "ANTHROPIC_BASE_URL",
+      "value": "https://api.z.ai/api/anthropic"
+    },
+    {
+      "name": "ANTHROPIC_AUTH_TOKEN",
+      "value": "your_api_key"
+    },
+    {
+      "name": "CLAUDE_CODE_SKIP_AUTH_LOGIN",
+      "value": "true"
+    }
+  ]
+}
+```
+
+**Catatan:** 
+- Ganti `your_api_key` dengan API key Anda yang sebenarnya
+- `CLAUDE_CODE_SKIP_AUTH_LOGIN: "true"` akan melewati prompt login dan langsung menggunakan API key dari environment variables
+
+**Cara 2: Edit Langsung File settings.json**
+
+**Windows:**
+- User Settings: `%APPDATA%\Code\User\settings.json`
+- Workspace Settings: `.vscode/settings.json` di folder project
+
+**Mac:**
+- User Settings: `~/Library/Application Support/Code/User/settings.json`
+- Workspace Settings: `.vscode/settings.json` di folder project
+
+**Linux:**
+- User Settings: `~/.config/Code/User/settings.json`
+- Workspace Settings: `.vscode/settings.json` di folder project
+
+**Langkah-langkah:**
+
+1. **Buka Command Palette:**
+   - Tekan `Ctrl+Shift+P` (Windows/Linux) atau `Cmd+Shift+P` (Mac)
+   - Ketik: `Preferences: Open User Settings (JSON)`
+   - Atau untuk workspace: `Preferences: Open Workspace Settings (JSON)`
+
+2. **Tambahkan konfigurasi** seperti di atas
+
+3. **Simpan file** (`Ctrl+S` atau `Cmd+S`)
+
+4. **Reload VS Code:**
+   - Tekan `Ctrl+Shift+P` (Windows/Linux) atau `Cmd+Shift+P` (Mac)
+   - Ketik: `Developer: Reload Window`
+   - Atau tutup dan buka VS Code lagi
+
+**Setelah konfigurasi:**
+
+- ✅ Claude Code extension akan langsung menggunakan API
+- ✅ Tidak akan muncul prompt login
+- ✅ Extension akan tampil seperti di screenshot (panel Claude di sidebar)
+- ✅ Bisa langsung chat dengan Claude di VS Code
+
+**Troubleshooting:**
+
+- ⚠️ Jika extension masih meminta login, pastikan `CLAUDE_CODE_SKIP_AUTH_LOGIN` di-set ke `"true"`
+- ⚠️ Pastikan API key valid dan tidak ada spasi di awal/akhir
+- ⚠️ Reload VS Code setelah mengubah settings.json
+- ⚠️ Jika menggunakan workspace settings, pastikan file `.vscode/settings.json` ada di root project
+
+**Referensi:**
+- Dokumentasi resmi: https://code.claude.com/docs/en/settings
+- Extension akan membaca environment variables dari `claudeCode.environmentVariables` di settings.json
 
 ---
 
