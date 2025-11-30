@@ -267,23 +267,7 @@ Rate limit exceeded. Please try again later.
 
 ---
 
-### 3. Tracking Manual (Alternatif Sederhana)
-
-**Jika tidak ada cara otomatis, gunakan tracking manual:**
-
-**Cara 1: Hitung Manual**
-- Setiap kali Anda kirim prompt (tekan Enter), catat di notepad atau aplikasi counter
-- Reset counter setiap 5 jam
-- Contoh: "Prompt ke-1, ke-2, ke-3..." sampai 120
-
-**Cara 2: Gunakan Aplikasi Counter**
-- Install aplikasi counter sederhana di smartphone/komputer
-- Klik setiap kali kirim prompt
-- Set timer 5 jam untuk reset
-
----
-
-### 4. Estimasi Berdasarkan Token Usage
+### 3. Estimasi Berdasarkan Token Usage
 
 **Ya, Input dan Output Termasuk dalam Token Usage! ✅**
 
