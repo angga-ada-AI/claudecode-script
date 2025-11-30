@@ -178,4 +178,222 @@ Semua terminal kirim chat bersamaan
 
 **Intinya:** Untuk penggunaan personal di terminal, rate limit **jarang jadi masalah**. Selama tidak buka terlalu banyak terminal dan kirim chat bersamaan, Anda tidak akan mencapai limit.
 
+---
+
+## 📊 Limit Z.AI Lite Plan: 120 Prompts per 5 Jam
+
+### 🎯 Informasi Limit Paket
+
+**Paket Lite: Hingga ~120 perintah setiap 5 jam — sekitar 3× kuota penggunaan paket Claude Pro**
+
+**Penjelasan:**
+- **Limit:** ~120 prompts setiap 5 jam
+- **Berdasarkan:** Jumlah prompt (bukan token)
+- **Perbandingan:** 3× lebih besar dari kuota paket Claude Pro
+- **Reset:** Setiap 5 jam dari prompt pertama dalam periode tersebut
+
+**Catatan Penting:**
+- Limit dihitung berdasarkan **jumlah prompt**, bukan token usage
+- 1 prompt = 1 kali Anda mengirim chat/message ke Claude (tekan Enter)
+- Setiap prompt biasanya memungkinkan 15-20 panggilan model
+- Total konsumsi token bisa mencapai puluhan miliar token per bulan
+
+---
+
+## ⚠️ Perbedaan Token Usage vs Prompt Count
+
+**Perbedaan Penting:**
+- **1 Prompt** = 1 kali Anda mengirim chat/message ke Claude (tekan Enter)
+- **Token Usage** = Total token yang digunakan (input + output) untuk semua prompt
+- **Catatan:** Setiap prompt biasanya memungkinkan 15-20 panggilan model, sehingga total konsumsi token bisa mencapai puluhan miliar token
+
+**Contoh:**
+- Anda kirim 10 prompt → **10 prompts digunakan**
+- Setiap prompt menggunakan 1000 token → Total token = 10,000 token
+- Command `/cost` akan menampilkan **10,000 token**, bukan **10 prompts**
+
+---
+
+## ❌ Keterbatasan: Tidak Ada Metode Langsung untuk Cek Jumlah Prompt
+
+**Menurut dokumentasi resmi Z.AI:**
+
+> "Saat ini **tidak tersedia metode langsung** untuk memeriksa jumlah prompt yang telah digunakan dalam periode 5 jam tersebut."
+
+**Referensi:** [Z.AI Documentation](https://docs.z.ai/guides/overview/concept-param)
+
+**Ini berarti:**
+- ❌ Tidak ada command di Claude Code CLI untuk menampilkan jumlah prompt
+- ✅ Hanya bisa monitor melalui token usage atau error rate limit
+
+---
+
+## ✅ Cara Cek Penggunaan Limit
+
+### 1. Monitor Token Usage (Cara yang Tersedia)
+
+Gunakan command `/cost` untuk melihat token usage sebagai referensi:
+
+```
+/cost
+```
+
+**Estimasi kasar berdasarkan token usage:**
+- Setiap prompt biasanya menghasilkan 15-20 panggilan model
+- Total konsumsi token bisa mencapai puluhan miliar token per bulan
+- **Catatan:** Ini hanya estimasi, tidak akurat karena setiap prompt berbeda jumlah token
+
+**Cara menggunakan:**
+- Monitor token usage secara berkala
+- Jika token usage tinggi, kemungkinan sudah menggunakan banyak prompt
+- Gunakan sebagai indikator kasar, bukan angka pasti
+
+---
+
+### 2. Monitor Error Rate Limit (Cara Praktis)
+
+**Cara ini untuk tahu kapan Anda mencapai limit:**
+
+Jika Anda mencapai limit 120 prompts, akan muncul error:
+```
+Error 429: Rate limit exceeded
+atau
+Too many requests. Please try again later.
+atau
+Rate limit exceeded. Please try again later.
+```
+
+**Cara menggunakan:**
+- Jika error muncul → berarti Anda sudah mencapai **120 prompts**
+- Tunggu hingga periode 5 jam reset
+- Setelah reset, Anda bisa menggunakan lagi
+
+**Kekurangan:** Hanya tahu setelah mencapai limit, tidak tahu berapa sisa quota.
+
+---
+
+### 3. Tracking Manual (Alternatif Sederhana)
+
+**Jika tidak ada cara otomatis, gunakan tracking manual:**
+
+**Cara 1: Hitung Manual**
+- Setiap kali Anda kirim prompt (tekan Enter), catat di notepad atau aplikasi counter
+- Reset counter setiap 5 jam
+- Contoh: "Prompt ke-1, ke-2, ke-3..." sampai 120
+
+**Cara 2: Gunakan Aplikasi Counter**
+- Install aplikasi counter sederhana di smartphone/komputer
+- Klik setiap kali kirim prompt
+- Set timer 5 jam untuk reset
+
+---
+
+### 4. Estimasi Berdasarkan Token Usage
+
+**Ya, Input dan Output Termasuk dalam Token Usage! ✅**
+
+Dari command `/cost`, Anda akan melihat:
+- **Input tokens** = Token dari pesan yang Anda kirim ke Claude
+- **Output tokens** = Token dari respons yang dihasilkan Claude
+- **Total tokens** = Input tokens + Output tokens
+
+**Contoh dari output `/cost`:**
+```
+Usage by model:
+- claude-haiku:
+  - Input tokens: 45.3k
+  - Output tokens: 651
+  - Total untuk model ini: 45.3k + 651 = ~45,951 tokens
+
+- claude-sonnet:
+  - Input tokens: 41.4k
+  - Output tokens: 15.1k
+  - Total untuk model ini: 41.4k + 15.1k = ~56,500 tokens
+
+Total keseluruhan: ~102,451 tokens
+```
+
+---
+
+**📊 Estimasi untuk 120 Prompts (Limit Z.AI Lite Plan):**
+
+**⚠️ PENTING:** Estimasi ini **TIDAK AKURAT 100%** karena setiap prompt berbeda panjangnya. Gunakan hanya sebagai **referensi kasar**.
+
+**Cara Menghitung Estimasi:**
+
+1. **Hitung total token dari `/cost`:**
+   ```
+   Total tokens = Input tokens + Output tokens (dari semua model)
+   ```
+
+2. **Gunakan estimasi rata-rata per prompt:**
+
+   **Skenario 1: Prompt Pendek-Sedang (Paling Umum)**
+   - Rata-rata: **~850-1,200 token per prompt** (input + output)
+   - Estimasi untuk 120 prompts:
+     - **102,000 - 144,000 tokens** ≈ **120 prompts** ✅
+     - **Contoh:** Jika total token Anda = ~102,451 → **~85-120 prompts**
+
+   **Skenario 2: Prompt Panjang (Dengan Konteks Banyak)**
+   - Rata-rata: **~1,500-2,500 token per prompt** (input + output)
+   - Estimasi untuk 120 prompts:
+     - **180,000 - 300,000 tokens** ≈ **120 prompts** ✅
+     - **Contoh:** Jika total token Anda = ~200,000 → **~80-120 prompts**
+
+   **Skenario 3: Prompt Sangat Pendek**
+   - Rata-rata: **~300-600 token per prompt** (input + output)
+   - Estimasi untuk 120 prompts:
+     - **36,000 - 72,000 tokens** ≈ **120 prompts** ✅
+     - **Contoh:** Jika total token Anda = ~50,000 → **~83-166 prompts**
+
+3. **Rumus Cepat Estimasi:**
+   ```
+   Estimasi Jumlah Prompt ≈ Total Tokens ÷ Rata-rata Token per Prompt
+   
+   Contoh:
+   - Total tokens: 102,451
+   - Rata-rata: 850 token/prompt
+   - Estimasi: 102,451 ÷ 850 ≈ 120 prompts
+   ```
+
+**📋 Tabel Referensi Cepat:**
+
+| Total Tokens | Estimasi Jumlah Prompt (Rata-rata 850 token/prompt) |
+|--------------|-----------------------------------------------------|
+| ~10,000      | ~12 prompts                                         |
+| ~25,000      | ~29 prompts                                         |
+| ~50,000      | ~59 prompts                                         |
+| ~85,000      | ~100 prompts                                        |
+| ~102,000     | ~120 prompts ⚠️ **Mendekati limit!**                |
+| ~120,000     | ~141 prompts ❌ **Melebihi limit!**                 |
+
+**Catatan Penting:**
+- ❌ **Estimasi ini TIDAK AKURAT 100%** - hanya untuk referensi kasar
+- ✅ **Input dan output tokens** keduanya dihitung sebagai token usage
+- ✅ **Total token = Input + Output** dari semua model yang digunakan
+- ⚠️ **Jangan mengandalkan estimasi ini** untuk tracking yang akurat
+- 💡 **Lebih baik gunakan tracking manual** atau monitor error 429
+- 🎯 **Jika total token > 100,000**, kemungkinan sudah mendekati atau melebihi 120 prompts
+
+---
+
+## 💡 Tips untuk Monitoring Prompt Usage
+
+1. **Set timer 5 jam** setelah mulai menggunakan untuk tahu kapan reset
+2. **Monitor error 429** - jika muncul, berarti sudah mencapai limit
+3. **Tracking manual** jika tidak ada cara otomatis
+4. **Gunakan `/cost`** hanya untuk melihat token usage sebagai referensi (bukan jumlah prompt)
+5. **Hitung rata-rata:** Jika Anda menggunakan ~24 prompt per jam, berarti ~120 prompt dalam 5 jam
+
+---
+
+## 📝 Catatan Penting tentang Limit 120 Prompts
+
+- ✅ **Limit 120 prompts** dihitung per 5 jam, bukan per hari
+- ✅ **Reset period** dimulai dari prompt pertama dalam periode 5 jam
+- ✅ **Paket Lite** memberikan 3× lebih besar dari kuota paket Claude Pro
+- ❌ **Tidak ada command di Claude Code** untuk menampilkan jumlah prompt secara langsung
+- ⚠️ **Token usage ≠ Prompt count** - 1 prompt bisa menggunakan ribuan token
+- 💡 **Lebih baik gunakan tracking manual** atau monitor error 429 untuk tracking yang akurat
+
 

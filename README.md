@@ -330,41 +330,17 @@ Setelah Claude Code berjalan di terminal:
 
 ### 📊 Cara Cek Penggunaan Limit
 
-**1. Cek Usage/Billing di Sesi Claude Code:**
+📄 **Lihat:** [`PENJELASAN_RATE_LIMIT.md`](PENJELASAN_RATE_LIMIT.md) - Penjelasan lengkap tentang limit dan cara cek penggunaan
 
-Saat Claude Code sedang berjalan di terminal, ketik:
+**Ringkasan:**
+- **Paket Lite:** Hingga ~120 perintah setiap 5 jam — sekitar 3× kuota penggunaan paket Claude Pro
+- Command `/cost` hanya menampilkan token usage, bukan jumlah prompt
+- Tidak ada metode langsung untuk cek jumlah prompt yang digunakan
+- Gunakan tracking manual atau monitor error 429 untuk mengetahui limit
 
-```
-/cost
-```
-
-Command ini akan menampilkan:
-- ✅ Total token yang digunakan dalam sesi saat ini
-- ✅ Total biaya untuk sesi saat ini
-- ✅ Durasi total sesi
-- ✅ Perubahan kode yang dilakukan
-
-**2. Cek Status Model dan Konfigurasi:**
-
-```
-/status
-```
-
-Command ini akan menampilkan:
-- ✅ Model yang sedang digunakan
-- ✅ Status konfigurasi API
-- ✅ Informasi environment variables
-
-**3. Lihat Semua Command yang Tersedia:**
-
-```
-/help
-```
-
-**Catatan:**
-- Command `/cost` menampilkan statistik untuk **sesi saat ini** saja
-- Untuk monitoring penggunaan jangka panjang, cek di dashboard Z.AI atau akun API provider Anda
-- Command `/cost` tidak dimaksudkan untuk pelanggan paket berbayar (Pro/Max) - gunakan dashboard akun untuk monitoring
+**Command untuk cek usage:**
+- `/cost` - Cek token usage (input + output tokens)
+- `/status` - Cek status model dan konfigurasi
 
 ### Tips
 
