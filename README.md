@@ -320,8 +320,51 @@ Setelah Claude Code berjalan di terminal:
 
 ### Command Khusus
 
+**Command yang tersedia di Claude Code CLI:**
+
 - `/status` - Cek status model yang sedang digunakan
+- `/cost` - Cek penggunaan token dan biaya untuk sesi saat ini
 - `/help` - Lihat daftar command yang tersedia
+- `/exit` - Keluar dari Claude Code
+- `/model` - Ganti atau cek model yang digunakan
+
+### 📊 Cara Cek Penggunaan Limit
+
+**1. Cek Usage/Billing di Sesi Claude Code:**
+
+Saat Claude Code sedang berjalan di terminal, ketik:
+
+```
+/cost
+```
+
+Command ini akan menampilkan:
+- ✅ Total token yang digunakan dalam sesi saat ini
+- ✅ Total biaya untuk sesi saat ini
+- ✅ Durasi total sesi
+- ✅ Perubahan kode yang dilakukan
+
+**2. Cek Status Model dan Konfigurasi:**
+
+```
+/status
+```
+
+Command ini akan menampilkan:
+- ✅ Model yang sedang digunakan
+- ✅ Status konfigurasi API
+- ✅ Informasi environment variables
+
+**3. Lihat Semua Command yang Tersedia:**
+
+```
+/help
+```
+
+**Catatan:**
+- Command `/cost` menampilkan statistik untuk **sesi saat ini** saja
+- Untuk monitoring penggunaan jangka panjang, cek di dashboard Z.AI atau akun API provider Anda
+- Command `/cost` tidak dimaksudkan untuk pelanggan paket berbayar (Pro/Max) - gunakan dashboard akun untuk monitoring
 
 ### Tips
 
