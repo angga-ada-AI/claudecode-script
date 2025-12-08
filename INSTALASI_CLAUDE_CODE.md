@@ -1,5 +1,12 @@
 # 🚀 Panduan Instalasi Claude Code CLI
 
+> [!NOTE]
+> **File ini khusus untuk setup Claude Code CLI (Terminal).**
+> 
+> Jika Anda ingin menggunakan **VS Code Extension** (panel UI di sidebar), lihat:
+> - 📄 [`README.md` - Setup VS Code Extension](README.md#step-3-setup-konfigurasi)
+> - 📄 [`TROUBLESHOOTING.md` - Setup Claude Code Extension untuk VS Code](TROUBLESHOOTING.md#setup-claude-code-extension-untuk-vs-code)
+
 ## 📋 Prerequisites
 
 1. **Node.js 18 atau lebih baru** terinstall
@@ -151,6 +158,24 @@ File tersebut mencakup:
 ---
 
 
+## 💡 Perbedaan CLI vs VS Code Extension
+
+**Claude Code CLI (File ini):**
+- Interface chat di **terminal** (PowerShell, CMD, Bash)
+- Konfigurasi menggunakan **environment variables** (`setx` di Windows) atau file `~/.claude/settings.json`
+- Jalankan dengan command `claude` di terminal
+- Cocok untuk developer yang suka bekerja di terminal
+
+**VS Code Extension:**
+- Interface chat di **panel sidebar VS Code**
+- Konfigurasi menggunakan **VS Code settings.json**
+- Akses melalui ikon Claude di sidebar VS Code
+- Cocok untuk developer yang suka UI visual
+
+📄 **Untuk setup VS Code Extension**, lihat: [`README.md` - Setup VS Code Extension](README.md#step-3-setup-konfigurasi)
+
+---
+
 ## 💡 Perbedaan dengan Script Setup Environment Variables
 
 **Script `set-anthropic-env-windows-interactive.ps1`:**
@@ -165,6 +190,7 @@ File tersebut mencakup:
 
 **Kesimpulan:** 
 - Jika ingin **chat interface** di terminal → Install **Claude Code CLI**
+- Jika ingin **chat interface** di VS Code UI → Install **VS Code Extension**
 - Jika ingin **programmatically** menggunakan API → Gunakan **script setup environment variables** + library Python/JS
 
 ---
