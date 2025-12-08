@@ -53,6 +53,13 @@ setx ANTHROPIC_BASE_URL https://api.z.ai/api/anthropic
 - Ganti `your_zai_api_key` dengan API key Anda yang sebenarnya (tanpa tanda kutip)
 - Command `setx` tidak akan menampilkan output - itu normal, asalkan tidak ada error
 
+> [!IMPORTANT]
+> **Setelah setup `setx` selesai:**
+> - Saat pertama kali menjalankan `claude`, Anda hanya perlu **memilih tema** (Dark mode/Light mode)
+> - Claude Code akan **otomatis menggunakan z.ai API** tanpa meminta Anthropic API key
+> - **TIDAK PERLU** membuka https://console.anthropic.com/ atau setup API key manual
+> - Jika diminta API key, berarti environment variables belum terbaca - restart terminal dan coba lagi
+
 #### Atau Gunakan Script Otomatis (Opsional)
 
 Jika ingin cara yang lebih interaktif, gunakan script:

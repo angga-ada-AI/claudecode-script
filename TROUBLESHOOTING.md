@@ -76,6 +76,234 @@ Node.js belum terinstall atau npm tidak ada di PATH sistem.
 
 ---
 
+### 🪟 Troubleshooting Khusus Windows
+
+Berikut adalah masalah-masalah umum yang sering terjadi di Windows saat instalasi Node.js dan Claude Code:
+
+#### Masalah 1: Node.js Terinstall Tapi Command Tidak Ditemukan
+
+**Gejala:**
+```
+node : The term 'node' is not recognized...
+npm : The term 'npm' is not recognized...
+```
+
+**Penyebab:**
+- Node.js sudah terinstall di `C:\Program Files\nodejs\` tapi PATH belum terupdate di terminal yang sedang terbuka
+- Terminal/VS Code dibuka sebelum instalasi Node.js selesai
+
+**Solusi:**
+
+1. **Tutup SEMUA terminal dan VS Code yang terbuka**
+2. **Buka terminal/VS Code baru**
+3. Test lagi:
+   ```cmd
+   node -v
+   npm -v
+   ```
+
+**Jika masih tidak berfungsi**, cek apakah Node.js benar-benar terinstall:
+
+```powershell
+# Cek apakah file node.exe ada
+Test-Path "C:\Program Files\nodejs\node.exe"
+
+# Jika True, coba jalankan langsung dengan full path
+& "C:\Program Files\nodejs\node.exe" -v
+& "C:\Program Files\nodejs\npm.cmd" -v
+```
+
+**Jika full path berfungsi tapi command biasa tidak**, berarti masalah di PATH. Lanjut ke solusi berikut.
+
+---
+
+#### Masalah 2: PATH Tidak Terbaca di PowerShell/Terminal
+
+**Gejala:**
+- `node -v` dengan full path berfungsi
+- `node -v` tanpa path tidak berfungsi
+- Setelah restart terminal masih sama
+
+**Solusi: Refresh PATH di PowerShell**
+
+```powershell
+# Refresh environment variables tanpa restart
+$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+
+# Test lagi
+node -v
+npm -v
+```
+
+**Solusi: Tambah PATH Manual (Permanen)**
+
+Jika cara di atas tidak berhasil, tambah PATH secara manual:
+
+1. Tekan **Win + R**
+2. Ketik: `rundll32.exe sysdm.cpl,EditEnvironmentVariables`
+3. Enter
+4. Di **User variables** (atas), cari **"Path"**
+5. Klik **Edit**
+6. Klik **New**
+7. Tambahkan: `C:\Program Files\nodejs\`
+8. Klik **OK** semua
+9. **Restart semua terminal dan VS Code**
+10. Test lagi
+
+---
+
+#### Masalah 3: PowerShell Execution Policy Error
+
+**Gejala:**
+```
+npm : File C:\Program Files\nodejs\npm.ps1 cannot be loaded because running scripts is disabled on this system.
+```
+
+**Penyebab:**
+- `node -v` berfungsi tapi `npm -v` tidak
+- PowerShell memblokir eksekusi script npm
+
+**Solusi 1: Set Execution Policy (Recommended)**
+
+Buka PowerShell **sebagai Administrator**:
+
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+Ketik **Y** untuk konfirmasi, lalu restart PowerShell.
+
+**Solusi 2: Gunakan Command Prompt (CMD)**
+
+Jika tidak bisa ubah Execution Policy, gunakan CMD:
+
+1. Tekan **Win + R**
+2. Ketik: `cmd`
+3. Enter
+4. Test:
+   ```cmd
+   node -v
+   npm -v
+   ```
+
+CMD tidak terpengaruh Execution Policy, jadi lebih stabil untuk npm commands.
+
+---
+
+#### Masalah 4: VS Code Terminal Tidak Membaca PATH
+
+**Gejala:**
+- `node` dan `npm` berfungsi di CMD/PowerShell standalone
+- Tidak berfungsi di terminal VS Code
+
+**Solusi:**
+
+1. **Tutup VS Code sepenuhnya** (penting!)
+2. **Buka VS Code baru**
+3. Buka terminal di VS Code (Ctrl + `)
+4. Test:
+   ```cmd
+   node -v
+   npm -v
+   ```
+
+**Jika masih tidak berfungsi:**
+
+1. Tekan **Ctrl + Shift + P**
+2. Ketik: `Developer: Reload Window`
+3. Enter
+4. Test lagi di terminal
+
+**Alternatif: Ubah Default Terminal ke CMD**
+
+1. Tekan **Ctrl + Shift + P**
+2. Ketik: `Terminal: Select Default Profile`
+3. Pilih **Command Prompt**
+4. Buka terminal baru (Ctrl + `)
+
+---
+
+#### Masalah 5: `claude` Command Not Found Setelah Install
+
+**Gejala:**
+```
+claude : The term 'claude' is not recognized...
+```
+
+**Penyebab:**
+- npm global packages disimpan di `%APPDATA%\npm` yang belum ada di PATH
+- Executable yang terinstall adalah `claude` bukan `claude-code`
+
+**Solusi:**
+
+1. **Cek lokasi npm global packages:**
+   ```cmd
+   npm config get prefix
+   ```
+   
+   Biasanya: `C:\Users\USER\AppData\Roaming\npm`
+
+2. **Tambah ke PATH:**
+   - Tekan **Win + R**
+   - Ketik: `rundll32.exe sysdm.cpl,EditEnvironmentVariables`
+   - Di **User variables**, edit **"Path"**
+   - Klik **New**
+   - Tambahkan path dari step 1 (contoh: `C:\Users\USER\AppData\Roaming\npm`)
+   - Klik **OK** semua
+
+3. **Restart semua terminal dan VS Code**
+
+4. **Test:**
+   ```cmd
+   claude --version
+   ```
+
+**Catatan:** Command yang benar adalah `claude`, bukan `claude-code`.
+
+---
+
+#### Masalah 6: Tidak Punya Akses Administrator
+
+**Gejala:**
+- Tidak bisa edit System variables (bagian bawah)
+- Hanya bisa edit User variables (bagian atas)
+
+**Solusi:**
+
+**Tidak masalah!** User variables sudah cukup:
+
+1. Di **User variables** (atas), edit **"Path"**
+2. Tambahkan:
+   - `C:\Program Files\nodejs\`
+   - `C:\Users\USER\AppData\Roaming\npm` (sesuaikan dengan username Anda)
+3. Klik **OK**
+4. Restart terminal
+
+User PATH hanya berlaku untuk user Anda, tapi itu sudah cukup untuk development.
+
+---
+
+#### Ringkasan Solusi Windows
+
+| Masalah | Solusi Cepat |
+|---------|--------------|
+| `node/npm not recognized` | Restart terminal/VS Code |
+| PATH tidak terbaca | Tambah manual di User variables |
+| PowerShell Execution Policy | Gunakan CMD atau set RemoteSigned |
+| VS Code terminal error | Tutup VS Code sepenuhnya, buka lagi |
+| `claude not found` | Tambah `%APPDATA%\npm` ke PATH |
+| Tidak ada akses Admin | Gunakan User variables (sudah cukup) |
+
+**Langkah Umum yang Selalu Berhasil:**
+1. ✅ Install Node.js dari nodejs.org
+2. ✅ Tambah `C:\Program Files\nodejs\` ke User PATH
+3. ✅ Tambah `C:\Users\USER\AppData\Roaming\npm` ke User PATH
+4. ✅ Restart semua terminal dan VS Code
+5. ✅ Gunakan CMD jika PowerShell bermasalah
+6. ✅ Test dengan `node -v`, `npm -v`, `claude --version`
+
+---
+
 ### Error "npm.ps1 cannot be loaded" (Execution Policy)
 
 **Error:**
@@ -867,6 +1095,107 @@ Buka file `settings.json` (User Settings atau Workspace Settings) dan tambahkan:
 - ⚠️ Pastikan API key valid dan tidak ada spasi di awal/akhir
 - ⚠️ Reload VS Code setelah mengubah settings.json
 - ⚠️ Jika menggunakan workspace settings, pastikan file `.vscode/settings.json` ada di root project
+
+---
+
+### VS Code Extension Panel Loading Terus (Wibbling...)
+
+**Gejala:**
+- Panel Claude Code extension di sidebar menampilkan "Wibbling..." atau loading terus menerus
+- Loading tidak selesai meskipun sudah menunggu lama (lebih dari 1 menit)
+- Settings.json sudah dikonfigurasi dengan benar
+- CLI (`claude` command) berfungsi dengan baik di terminal
+
+**Penyebab:**
+- Bug di Claude Code extension untuk Windows
+- Incompatibility dengan versi VS Code tertentu
+- Conflict dengan extension lain
+- Cache VS Code bermasalah
+
+**Solusi 1: Gunakan CLI di Terminal (Recommended)**
+
+Karena CLI sudah berfungsi dengan sempurna, gunakan CLI sebagai alternatif yang lebih stabil:
+
+**Cara 1: Centang "Use Terminal" di Extension Settings**
+
+1. Buka Settings (Ctrl+,)
+2. Cari: `Claude Code: Use Terminal`
+3. **Centang** checkbox
+4. Sekarang saat klik ikon Claude Code di sidebar, akan otomatis membuka CLI di terminal
+
+**Cara 2: Manual di Terminal**
+
+1. Buka terminal di VS Code (Ctrl + `)
+2. Jalankan: `claude`
+3. Chat langsung di terminal
+
+**Keuntungan CLI:**
+- ✅ Lebih cepat (tidak ada loading UI)
+- ✅ Lebih stabil (tidak ada bug panel UI)
+- ✅ Fitur lengkap sama dengan panel UI
+- ✅ Sudah terbukti berfungsi dengan baik
+
+**Solusi 2: Reinstall Extension (Jika Tetap Ingin Panel UI)**
+
+Jika tetap ingin menggunakan panel UI:
+
+1. **Uninstall extension:**
+   - Buka Extensions (Ctrl+Shift+X)
+   - Cari "Claude Code"
+   - Klik **Uninstall**
+
+2. **Clear VS Code cache:**
+   ```cmd
+   rd /s /q "%APPDATA%\Code\Cache"
+   rd /s /q "%APPDATA%\Code\CachedData"
+   ```
+
+3. **Restart VS Code sepenuhnya** (tutup dan buka lagi)
+
+4. **Install ulang extension:**
+   - Buka Extensions
+   - Cari "Claude Code"
+   - Install
+
+5. **Restart VS Code lagi**
+
+6. **Coba buka panel Claude Code**
+
+**Solusi 3: Cek Output Panel untuk Error**
+
+Lihat error spesifik yang mungkin muncul:
+
+1. Tekan **Ctrl + Shift + U** (Output panel)
+2. Di dropdown, pilih **"Claude Code"**
+3. Screenshot atau copy error message yang muncul
+4. Report ke Anthropic support jika ada bug
+
+**Solusi 4: Update VS Code**
+
+1. **Cek versi VS Code:** Help → About
+2. **Update VS Code** jika ada versi baru
+3. **Restart VS Code**
+4. **Coba panel lagi**
+
+**Catatan Penting:**
+- ✅ **CLI adalah solusi yang valid**, bukan workaround sementara
+- ✅ Banyak developer prefer CLI karena lebih cepat dan stabil
+- ✅ Jika panel UI loading terus setelah semua solusi, kemungkinan bug di extension
+- ⚠️ Report issue ke Anthropic GitHub jika masalah persisten: https://github.com/anthropics/anthropic-quickstarts
+
+**Perbedaan CLI vs Panel UI:**
+
+| Aspek | CLI (Terminal) | Panel UI (Sidebar) |
+|-------|----------------|-------------------|
+| **Kecepatan** | ⚡ Instant | 🐌 Loading UI |
+| **Stabilitas** | ✅ Sangat stabil | ⚠️ Kadang bug |
+| **Fitur** | ✅ Lengkap | ✅ Lengkap |
+| **Interface** | Terminal text | Visual panel |
+| **Cocok untuk** | Developer yang suka terminal | Developer yang suka UI visual |
+
+**Rekomendasi:**
+- Untuk Windows, **gunakan CLI** karena lebih stabil
+- Panel UI bisa dicoba lagi setelah update extension di masa depan
 
 **Referensi:**
 - Dokumentasi resmi: https://code.claude.com/docs/en/settings

@@ -68,8 +68,7 @@ npm install -g @anthropic-ai/claude-code
 **Jika belum terinstall**, install extension **Claude Code** di VS Code:
 
 1. **Buka VS Code Extensions:**
-   - Tekan `Ctrl+Shift+X` (Windows/Linux) atau `Cmd+Shift+X` (Mac)
-   - Atau klik ikon **Extensions** di sidebar kiri
+   - klik ikon **Extensions** di sidebar kiri
 
 2. **Cari "Claude Code":**
    - Di search box, ketik: `Claude Code`
@@ -99,8 +98,15 @@ setx ANTHROPIC_BASE_URL https://api.z.ai/api/anthropic
 
 **Catatan Penting:**
 - `setx` akan set environment variables secara **permanen** di sistem Windows
-- Setelah menjalankan `setx`, Anda **harus tutup terminal dan buka terminal baru** agar environment variables aktif
+- Setelah menjalankan `setx`, Anda **harus tutup terminal dan buka terminal baru** agar environment variables aktif, kalau di terminal VS code tutup VS code dan buka kembali
 - Ganti `your_api_key` dengan API key Anda yang sebenarnya (tanpa tanda kutip)
+
+> [!IMPORTANT]
+> **Setelah setup `setx` selesai:**
+> - Saat pertama kali menjalankan `claude`, Anda hanya perlu **memilih tema** (Dark mode/Light mode)
+> - Claude Code akan **otomatis menggunakan API**
+> - **TIDAK PERLU** membuka https://console.anthropic.com/ atau setup API key manual
+> - Jika diminta API key, berarti environment variables belum terbaca - restart terminal dan coba lagi
 
 **Alternatif: Buat File settings.json untuk CLI**
 
@@ -167,9 +173,7 @@ Jika Anda ingin menggunakan Claude Code di **VS Code Extension panel**, setup VS
 3. **Simpan file** (`Ctrl+S` atau `Cmd+S`)
 
 4. **Reload VS Code:**
-   - Tekan `Ctrl+Shift+P` (Windows/Linux) atau `Cmd+Shift+P` (Mac)
-   - Ketik: `Developer: Reload Window`
-   - Atau tutup dan buka VS Code lagi
+   - Tutup dan buka VS Code lagi
 
 **Setelah konfigurasi:**
 - ✅ Claude Code extension akan langsung menggunakan API
@@ -190,14 +194,10 @@ Jika Anda ingin menggunakan Claude Code di **VS Code Extension panel**, setup VS
 **Cara membuka VS Code Extension panel:**
 
 1. **Pastikan VS Code sudah di-reload** setelah konfigurasi settings.json
-   - Tekan `Ctrl+Shift+P` (Windows/Linux) atau `Cmd+Shift+P` (Mac)
-   - Ketik: `Developer: Reload Window`
-   - Atau tutup dan buka VS Code lagi
+   - Tutup dan buka VS Code lagi
 
 2. **Buka Claude Code Extension panel:**
-   - **Cara 1:** Klik ikon **Claude Code** (ikon orange dengan starburst) di **sidebar kiri** VS Code
-   - **Cara 2:** Tekan `Ctrl+Shift+P` (Windows/Linux) atau `Cmd+Shift+P` (Mac), ketik `Claude Code: Open` atau `Claude Code: Focus`
-   - **Cara 3:** Klik menu **View** → **Open View...** → cari "Claude Code"
+   - Klik ikon **Claude Code** (ikon orange dengan starburst) di **sidebar kiri** VS Code
 
 3. **Panel Claude Code akan muncul di sidebar** (bukan di terminal!)
    - Panel akan menampilkan chat interface dengan Claude
@@ -224,11 +224,7 @@ Jika Anda ingin menggunakan Claude Code di **VS Code Extension panel**, setup VS
    claude
    ```
 
-4. **Jika diminta** "Do you want to use this API key," pilih **"Yes"**.
-
-5. **Grant permission** untuk akses file di folder project saat diminta.
-
-6. **Selesai!** Anda sekarang bisa chat dengan Claude Code di terminal! 🎉
+4. **Selesai!** Anda sekarang bisa chat dengan Claude Code di terminal! 🎉
 
 ---
 
