@@ -503,14 +503,16 @@ Jika tidak ingin mengubah execution policy permanen:
 powershell -ExecutionPolicy Bypass -File .\setup-claude-code-windows-simple.ps1
 ```
 
-**Solusi 3: Gunakan Cara Manual (Paling Aman)**
+**Solusi 3: Gunakan Cara Manual (Recommended)**
 
-Jika tidak ingin mengubah execution policy, gunakan cara manual tanpa script:
+Gunakan cara manual dengan `setx` command:
 
 ```cmd
 setx ANTHROPIC_AUTH_TOKEN your_api_key
 setx ANTHROPIC_BASE_URL https://api.z.ai/api/anthropic
 ```
+
+**Catatan:** Ganti `your_api_key` dengan API key Anda yang sebenarnya.
 
 **Catatan Penting:**
 - ✅ **Folder location tidak masalah** - Script bisa di `C:\`, `D:\`, atau folder manapun
@@ -1007,26 +1009,32 @@ Pastikan API key yang digunakan adalah API key yang valid:
 ---
 
 ## 🔧 Konfigurasi VS Code Extension
-
 ### Setup Claude Code Extension untuk VS Code
 
 Untuk menggunakan **Claude Code extension** di VS Code dengan API, Anda perlu mengkonfigurasi environment variables di VS Code settings.
 
-**Cara 1: Melalui VS Code Settings UI**
+> [!IMPORTANT]
+> **Workspace Settings Lebih Reliable!**
+> - Gunakan **Workspace Settings** (`.vscode/settings.json` di folder project) untuk hasil terbaik
+> - User Settings kadang tidak terbaca dengan baik oleh extension di Windows
+> - Workspace Settings hanya berlaku untuk project tertentu, lebih aman dan terisolasi
 
-1. **Buka VS Code Settings:**
-   - Tekan `Ctrl+,` (Windows/Linux) atau `Cmd+,` (Mac)
-   - Atau klik **File** → **Preferences** → **Settings**
+**Cara 1: Workspace Settings (Recommended) ⭐**
 
-2. **Cari "Claude Code: Environment Variables":**
-   - Di search box, ketik: `claudeCode.environmentVariables`
-   - Klik **"Edit in settings.json"** di bagian bawah deskripsi
+1. **Buka folder project di VS Code**
 
-3. **Tambahkan konfigurasi berikut:**
+2. **Buat file `.vscode/settings.json` di root folder project:**
+   - Buat folder `.vscode` jika belum ada
+   - Buat file `settings.json` di dalam folder `.vscode`
+
+3. **Atau gunakan Command Palette:**
+   - Tekan `Ctrl+Shift+P` (Windows/Linux) atau `Cmd+Shift+P` (Mac)
+   - Ketik: `Preferences: Open Workspace Settings (JSON)`
+   - File `.vscode/settings.json` akan dibuat otomatis
+
+4. **Tambahkan konfigurasi berikut:**
 
 **Windows/Mac/Linux:**
-
-Buka file `settings.json` (User Settings atau Workspace Settings) dan tambahkan:
 
 ```json
 {
@@ -1052,42 +1060,41 @@ Buka file `settings.json` (User Settings atau Workspace Settings) dan tambahkan:
 - Ganti `your_api_key` dengan API key Anda yang sebenarnya
 - `CLAUDE_CODE_SKIP_AUTH_LOGIN: "true"` akan melewati prompt login dan langsung menggunakan API key dari environment variables
 
-**Cara 2: Edit Langsung File settings.json**
+5. **Simpan file** (`Ctrl+S` atau `Cmd+S`)
 
-**Windows:**
-- User Settings: `%APPDATA%\Code\User\settings.json`
-- Workspace Settings: `.vscode/settings.json` di folder project
+6. **Reload VS Code:**
+   - Tutup dan buka VS Code lagi
 
-**Mac:**
-- User Settings: `~/Library/Application Support/Code/User/settings.json`
-- Workspace Settings: `.vscode/settings.json` di folder project
+**Cara 2: User Settings (Alternatif)**
 
-**Linux:**
-- User Settings: `~/.config/Code/User/settings.json`
-- Workspace Settings: `.vscode/settings.json` di folder project
+> [!WARNING]
+> User Settings kadang tidak terbaca dengan baik di Windows. Gunakan Workspace Settings jika mengalami masalah.
+
+**Lokasi User Settings:**
+- **Windows:** `%APPDATA%\Code\User\settings.json`
+- **Mac:** `~/Library/Application Support/Code/User/settings.json`
+- **Linux:** `~/.config/Code/User/settings.json`
 
 **Langkah-langkah:**
 
 1. **Buka Command Palette:**
    - Tekan `Ctrl+Shift+P` (Windows/Linux) atau `Cmd+Shift+P` (Mac)
    - Ketik: `Preferences: Open User Settings (JSON)`
-   - Atau untuk workspace: `Preferences: Open Workspace Settings (JSON)`
 
-2. **Tambahkan konfigurasi** seperti di atas
+2. **Tambahkan konfigurasi yang sama** seperti di Cara 1
 
 3. **Simpan file** (`Ctrl+S` atau `Cmd+S`)
 
 4. **Reload VS Code:**
-   - Tekan `Ctrl+Shift+P` (Windows/Linux) atau `Cmd+Shift+P` (Mac)
-   - Ketik: `Developer: Reload Window`
-   - Atau tutup dan buka VS Code lagi
+   - Tutup dan buka VS Code lagi
 
 **Setelah konfigurasi:**
 
 - ✅ Claude Code extension akan langsung menggunakan API
 - ✅ Tidak akan muncul prompt login
-- ✅ Extension akan tampil seperti di screenshot (panel Claude di sidebar)
+- ✅ Extension akan tampil di sidebar (panel Claude)
 - ✅ Bisa langsung chat dengan Claude di VS Code
+- ✅ **Jika masih loading terus**, gunakan Workspace Settings atau CLI di terminal
 
 **Troubleshooting:**
 
@@ -1228,8 +1235,7 @@ Lihat error spesifik yang mungkin muncul:
 
 ## 📚 Referensi
 
-- [`INSTALASI_CLAUDE_CODE.md`](INSTALASI_CLAUDE_CODE.md) - Panduan instalasi lengkap
-- [`README.md`](README.md) - Panduan utama
+- [`README.md`](README.md) - Panduan utama dan instalasi lengkap
 - [`PENJELASAN_RATE_LIMIT.md`](PENJELASAN_RATE_LIMIT.md) - Penjelasan tentang rate limit
 
 

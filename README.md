@@ -46,8 +46,6 @@ Panduan lengkap untuk menginstall dan menggunakan Claude Code CLI untuk chat int
 
 ## 🚀 Panduan Instalasi
 
-📄 **Lihat:** [`INSTALASI_CLAUDE_CODE.md`](INSTALASI_CLAUDE_CODE.md) - Panduan lengkap instalasi Claude Code CLI
-
 ### Prerequisites
 
 - **Node.js 18 atau lebih baru** terinstall di sistem Anda
@@ -112,11 +110,17 @@ setx ANTHROPIC_BASE_URL https://api.z.ai/api/anthropic
 
 Atau buat file `~/.claude/settings.json` untuk konfigurasi CLI:
 
-```powershell
-# Buat folder jika belum ada
-New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude"
+**Step 1: Buat Folder .claude**
 
-# Buat/edit file settings.json
+```powershell
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude"
+```
+
+**Step 2: Buat File settings.json**
+
+Copy-paste perintah ini **SEKALIGUS** ke PowerShell (ganti `your_api_key` dengan API key Anda):
+
+```powershell
 @"
 {
   "env": {
@@ -127,6 +131,26 @@ New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude"
 "@ | Out-File -FilePath "$env:USERPROFILE\.claude\settings.json" -Encoding utf8
 ```
 
+**Step 3: Verifikasi File Sudah Dibuat**
+
+```powershell
+# Cek apakah file ada
+Test-Path "$env:USERPROFILE\.claude\settings.json"
+
+# Lihat isi file
+Get-Content "$env:USERPROFILE\.claude\settings.json"
+```
+
+**Step 4: Edit File (Jika Perlu)**
+
+```powershell
+# Buka dengan Notepad
+notepad "$env:USERPROFILE\.claude\settings.json"
+
+# Atau buka dengan VS Code
+code "$env:USERPROFILE\.claude\settings.json"
+```
+
 📄 **Untuk troubleshooting CLI**, lihat: [`TROUBLESHOOTING.md` - Claude Code Dialihkan ke Anthropic Console](TROUBLESHOOTING.md#claude-code-dialihkan-ke-anthropic-console-login)
 
 ---
@@ -135,16 +159,26 @@ New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude"
 
 Jika Anda ingin menggunakan Claude Code di **VS Code Extension panel**, setup VS Code settings.json:
 
-**Buka/Edit File settings.json:**
+> [!IMPORTANT]
+> **Workspace Settings Lebih Reliable!**
+> - Gunakan **Workspace Settings** (`.vscode/settings.json` di folder project) untuk hasil terbaik
+> - User Settings kadang tidak terbaca dengan baik oleh extension di Windows
+> - Workspace Settings hanya berlaku untuk project tertentu, lebih aman dan terisolasi
 
-**Cara 1: Gunakan Command Palette (Direkomendasikan)**
+**Cara 1: Workspace Settings (Recommended) ⭐**
 
-1. **Buka Command Palette:**
+1. **Buka folder project di VS Code**
+
+2. **Buat file `.vscode/settings.json` di root folder project:**
+   - Buat folder `.vscode` jika belum ada
+   - Buat file `settings.json` di dalam folder `.vscode`
+
+3. **Atau gunakan Command Palette:**
    - Tekan `Ctrl+Shift+P` (Windows/Linux) atau `Cmd+Shift+P` (Mac)
-   - Ketik: `Preferences: Open User Settings (JSON)`
-   - Atau untuk workspace: `Preferences: Open Workspace Settings (JSON)`
+   - Ketik: `Preferences: Open Workspace Settings (JSON)`
+   - File `.vscode/settings.json` akan dibuat otomatis
 
-2. **Tambahkan konfigurasi berikut ke file settings.json:**
+4. **Tambahkan konfigurasi berikut:**
 
 ```json
 {
@@ -457,7 +491,7 @@ Setelah Claude Code berjalan di terminal:
 - Interaksi real-time dengan Claude sambil coding
 - Context-aware terhadap file di project
 
-Lihat [`INSTALASI_CLAUDE_CODE.md`](INSTALASI_CLAUDE_CODE.md) untuk panduan lengkap.
+Lihat bagian [Panduan Instalasi](#-panduan-instalasi) di atas untuk panduan lengkap.
 
 ### Bagaimana workflow penggunaannya?
 
@@ -480,7 +514,7 @@ Lihat [`INSTALASI_CLAUDE_CODE.md`](INSTALASI_CLAUDE_CODE.md) untuk panduan lengk
 
 ### Apakah bisa ganti model yang digunakan?
 
-Ya, lihat bagian "Switch Model" di [`INSTALASI_CLAUDE_CODE.md`](INSTALASI_CLAUDE_CODE.md).
+Ya, gunakan command `/model` di dalam Claude Code CLI untuk melihat dan mengganti model yang digunakan.
 
 ---
 
@@ -512,9 +546,7 @@ File tersebut mencakup:
 ## 📚 Referensi dan File Terkait
 
 ### 📄 File di Repository Ini:
-- [`INSTALASI_CLAUDE_CODE.md`](INSTALASI_CLAUDE_CODE.md) - Panduan instalasi lengkap Claude Code CLI
 - [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md) - Panduan troubleshooting lengkap untuk semua error
-- [`setup-claude-code-windows-simple.ps1`](setup-claude-code-windows-simple.ps1) - Script setup otomatis untuk Windows
 - [`PENJELASAN_RATE_LIMIT.md`](PENJELASAN_RATE_LIMIT.md) - Penjelasan tentang rate limit
 
 ---
@@ -523,7 +555,7 @@ File tersebut mencakup:
 
 Jika masih mengalami masalah:
 
-1. Cek panduan di [`INSTALASI_CLAUDE_CODE.md`](INSTALASI_CLAUDE_CODE.md)
+1. Cek panduan di bagian [Panduan Instalasi](#-panduan-instalasi) di atas
 2. Pastikan API key Anda valid dan belum expired
 3. Pastikan BASE URL benar: `https://api.z.ai/api/anthropic`
 4. Cek [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md) untuk solusi lengkap
