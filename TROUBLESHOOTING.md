@@ -649,6 +649,23 @@ where bash
 
 Jika muncul path seperti `C:\Program Files\Git\bin\bash.exe`, berarti Git Bash sudah terinstall.
 
+**Cara Cek Lebih Lengkap (PowerShell):**
+
+Anda bisa menjalankan script singkat ini di PowerShell untuk memastikan:
+
+```powershell
+# Cek apakah bash ada di PATH atau di lokasi default
+if (Get-Command bash -ErrorAction SilentlyContinue) { 
+    Write-Host "✅ Git Bash DITEMUKAN di PATH" -ForegroundColor Green
+    Get-Command bash | Select-Object Source
+} elseif (Test-Path "C:\Program Files\Git\bin\bash.exe") {
+    Write-Host "✅ Git Bash DITEMUKAN di C:\Program Files\Git\bin\bash.exe" -ForegroundColor Green
+    Write-Host "⚠️ TAPI tidak ada di PATH. Perlu setting CLAUDE_CODE_GIT_BASH_PATH" -ForegroundColor Yellow
+} else {
+    Write-Host "❌ Git Bash TIDAK DITEMUKAN. Harap install Git for Windows." -ForegroundColor Red
+}
+```
+
 ---
 
 ### Claude Code tidak bisa akses file
