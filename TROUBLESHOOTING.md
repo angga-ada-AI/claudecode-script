@@ -18,6 +18,7 @@ Panduan lengkap untuk mengatasi berbagai error yang mungkin terjadi saat install
   - [Claude Code tidak bisa akses file](#claude-code-tidak-bisa-akses-file)
   - [claude: command not found](#error-claude-command-not-found)
   - [Error Rate Limit Exceeded](#error-rate-limit-exceeded)
+  - [Error Context Window Limit](#error-the-model-has-reached-its-context-window-limit)
   - [Error Auto-update failed](#error-auto-update-failed)
   - [Error 401 Invalid bearer token](#error-401-invalid-bearer-token)
 - [Konfigurasi VS Code Extension](#-konfigurasi-vs-code-extension)
@@ -785,6 +786,58 @@ Jika muncul versi (contoh: `2.0.14`), berarti sudah berhasil!
 - Tunggu beberapa detik, lalu coba lagi
 - Jangan spam chat (tunggu response selesai sebelum kirim berikutnya)
 - Lihat [`PENJELASAN_RATE_LIMIT.md`](PENJELASAN_RATE_LIMIT.md) untuk penjelasan lengkap
+
+---
+
+### Error "The model has reached its context window limit"
+
+**Error:**
+```
+API Error: The model has reached its context window limit
+```
+
+**Penyebab:**
+- **Percakapan terlalu panjang** - Setiap model AI memiliki batas maksimal "context window" (jumlah token/karakter yang bisa diproses sekaligus)
+- **Terlalu banyak file/kode** yang dibaca dalam satu sesi
+- **Akumulasi pesan** - Semakin lama percakapan, semakin banyak token yang terakumulasi
+- **Meminta AI membaca seluruh codebase** sekaligus
+
+**Solusi 1: Mulai Percakapan Baru (Tercepat)**
+
+Ketik `/reset` atau mulai conversation baru untuk mereset context dan membebaskan token.
+
+```
+/reset
+```
+
+**Solusi 2: Gunakan /compact (Jika Tersedia)**
+
+Beberapa tools memiliki fitur untuk meringkas percakapan:
+
+```
+/compact
+```
+
+**Solusi 3: Pecah Tugas Menjadi Lebih Kecil**
+
+- Alih-alih meminta AI memproses banyak file sekaligus, minta satu per satu
+- Fokus pada satu fitur/fungsi per percakapan
+- Hindari meminta AI membaca seluruh codebase dalam satu perintah
+
+**Tips Mencegah Error Ini:**
+
+| Tips | Penjelasan |
+|------|------------|
+| Mulai percakapan baru untuk task baru | Jangan lanjutkan percakapan yang sudah panjang untuk task berbeda |
+| Fokus pada file spesifik | Sebutkan file yang relevan saja, bukan "baca semua" |
+| Pecah refactoring besar | Untuk perubahan besar, pecah menjadi beberapa percakapan |
+| Gunakan `/compact` berkala | Jika tersedia, ringkas percakapan sebelum terlalu panjang |
+
+**Catatan Penting:**
+- ✅ Error ini **bukan masalah API key atau koneksi** - ini murni batas kapasitas model
+- ✅ Data Anda **tidak hilang** - cukup mulai percakapan baru
+- ✅ Beberapa model memiliki context window lebih besar dari yang lain
+- ⚠️ Percakapan yang sangat panjang (>2 jam coding intensif) sering mencapai batas ini
 
 ---
 
