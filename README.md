@@ -6,6 +6,8 @@ Panduan lengkap untuk menginstall dan menggunakan Claude Code CLI untuk chat int
 
 - [Apa itu Claude Code CLI?](#-apa-itu-claude-code-cli)
 - [Panduan Instalasi](#-panduan-instalasi)
+  - [🪟 Windows](#-windows)
+  - [🍎 Mac/Linux](#-maclinux)
 - [Cara Menggunakan](#-cara-menggunakan)
 - [FAQ - Pertanyaan Umum](#-faq---pertanyaan-umum)
 - [Troubleshooting](#-troubleshooting)
@@ -182,7 +184,6 @@ Jika Anda ingin menggunakan Claude Code di **VS Code Extension panel**, setup VS
 
 ```json
 {
-  "claudeCode.disableLoginPrompt": false,
   "claudeCode.environmentVariables": [
     {
       "name": "ANTHROPIC_BASE_URL",
@@ -191,18 +192,12 @@ Jika Anda ingin menggunakan Claude Code di **VS Code Extension panel**, setup VS
     {
       "name": "ANTHROPIC_AUTH_TOKEN",
       "value": "your_api_key"
-    },
-    {
-      "name": "CLAUDE_CODE_SKIP_AUTH_LOGIN",
-      "value": "true"
     }
   ]
 }
 ```
 
-**Catatan:** 
-- Ganti `your_api_key` dengan API key Anda yang sebenarnya
-- `CLAUDE_CODE_SKIP_AUTH_LOGIN: "true"` akan melewati prompt login dan langsung menggunakan API key dari environment variables
+**Catatan:** Ganti `your_api_key` dengan API key Anda yang sebenarnya
 
 3. **Simpan file** (`Ctrl+S` atau `Cmd+S`)
 
@@ -365,7 +360,6 @@ Jika Anda ingin menggunakan Claude Code di **VS Code Extension panel**, setup VS
 
 ```json
 {
-  "claudeCode.disableLoginPrompt": false,
   "claudeCode.environmentVariables": [
     {
       "name": "ANTHROPIC_BASE_URL",
@@ -374,18 +368,12 @@ Jika Anda ingin menggunakan Claude Code di **VS Code Extension panel**, setup VS
     {
       "name": "ANTHROPIC_AUTH_TOKEN",
       "value": "your_api_key"
-    },
-    {
-      "name": "CLAUDE_CODE_SKIP_AUTH_LOGIN",
-      "value": "true"
     }
   ]
 }
 ```
 
-**Catatan:** 
-- Ganti `your_api_key` dengan API key Anda yang sebenarnya
-- `CLAUDE_CODE_SKIP_AUTH_LOGIN: "true"` akan melewati prompt login dan langsung menggunakan API key dari environment variables
+**Catatan:** Ganti `your_api_key` dengan API key Anda yang sebenarnya
 
 3. **Simpan file** (`Ctrl+S` atau `Cmd+S`)
 

@@ -1,5 +1,4 @@
 {
-  "claudeCode.disableLoginPrompt": false,
   "claudeCode.environmentVariables": [
     {
       "name": "ANTHROPIC_BASE_URL",
@@ -8,10 +7,6 @@
     {
       "name": "ANTHROPIC_AUTH_TOKEN",
       "value": "your_api_key"
-    },
-    {
-      "name": "CLAUDE_CODE_SKIP_AUTH_LOGIN",
-      "value": "true"
     }
   ]
 }

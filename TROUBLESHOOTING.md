@@ -11,7 +11,6 @@ Panduan lengkap untuk mengatasi berbagai error yang mungkin terjadi saat install
   - [Permission Denied saat Install](#permission-denied-saat-install)
 - [Error Konfigurasi](#-error-konfigurasi)
   - [Konfigurasi tidak bekerja](#konfigurasi-tidak-bekerja)
-  - [Script Tidak Bisa Dijalankan](#script-tidak-bisa-dijalankan-execution-policy-error)
   - [Claude Code Dialihkan ke Anthropic Console](#claude-code-dialihkan-ke-anthropic-console-login)
 - [Error Runtime](#-error-runtime)
   - [Claude Code requires git-bash](#error-claude-code-on-windows-requires-git-bash)
@@ -458,69 +457,7 @@ npm install -g @anthropic-ai/claude-code --registry https://registry.npmmirror.c
 3. **Jika kosong**, setup ulang dengan `setx` atau script otomatis
 4. **Pastikan tutup terminal dan buka terminal baru** setelah setup
 
----
 
-### Script Tidak Bisa Dijalankan (Execution Policy Error)
-
-**Error:** 
-```
-File cannot be loaded. The file is not digitally signed. 
-You cannot run this script on the current system.
-```
-
-**Penyebab:**
-- **Bukan masalah folder location** - Script bisa di folder manapun
-- **Bukan masalah administrator** - Tapi administrator diperlukan untuk mengubah execution policy
-- **Masalah:** PowerShell execution policy memblokir script yang tidak ditandatangani
-
-**Solusi 1: Set Execution Policy (Direkomendasikan)**
-
-1. **Buka PowerShell sebagai Administrator:**
-   - Klik kanan PowerShell → "Run as Administrator"
-
-2. **Jalankan command:**
-   ```powershell
-   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-   ```
-
-3. **Konfirmasi dengan "Y"** jika diminta
-
-4. **Tutup PowerShell Administrator**, buka PowerShell biasa
-
-5. **Jalankan script lagi:**
-   ```powershell
-   .\setup-claude-code-windows-simple.ps1
-   ```
-
-**Penjelasan:**
-- `RemoteSigned` = Izinkan script lokal yang tidak ditandatangani, tapi script dari internet harus ditandatangani
-- `CurrentUser` = Hanya berlaku untuk user saat ini (aman, tidak mempengaruhi user lain di komputer yang sama)
-
-**Solusi 2: Bypass untuk Session Saat Ini**
-
-Jika tidak ingin mengubah execution policy permanen:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\setup-claude-code-windows-simple.ps1
-```
-
-**Solusi 3: Gunakan Cara Manual (Recommended)**
-
-Gunakan cara manual dengan `setx` command:
-
-```cmd
-setx ANTHROPIC_AUTH_TOKEN your_api_key
-setx ANTHROPIC_BASE_URL https://api.z.ai/api/anthropic
-```
-
-**Catatan:** Ganti `your_api_key` dengan API key Anda yang sebenarnya.
-
-**Catatan Penting:**
-- ✅ **Folder location tidak masalah** - Script bisa di `C:\`, `D:\`, atau folder manapun
-- ⚠️ **Administrator diperlukan** untuk mengubah execution policy (Solusi 1)
-- ✅ **Cara manual (`setx`)** tidak memerlukan execution policy atau administrator
-
----
 
 ### Claude Code Dialihkan ke Anthropic Console (Login)
 
@@ -1108,7 +1045,6 @@ Untuk menggunakan **Claude Code extension** di VS Code dengan API, Anda perlu me
 
 ```json
 {
-  "claudeCode.disableLoginPrompt": false,
   "claudeCode.environmentVariables": [
     {
       "name": "ANTHROPIC_BASE_URL",
@@ -1117,18 +1053,15 @@ Untuk menggunakan **Claude Code extension** di VS Code dengan API, Anda perlu me
     {
       "name": "ANTHROPIC_AUTH_TOKEN",
       "value": "your_api_key"
-    },
-    {
-      "name": "CLAUDE_CODE_SKIP_AUTH_LOGIN",
-      "value": "true"
     }
   ]
 }
 ```
 
-**Catatan:** 
-- Ganti `your_api_key` dengan API key Anda yang sebenarnya
-- `CLAUDE_CODE_SKIP_AUTH_LOGIN: "true"` akan melewati prompt login dan langsung menggunakan API key dari environment variables
+**Catatan:** Ganti `your_api_key` dengan API key Anda yang sebenarnya.
+
+> [!WARNING]
+> **JANGAN** tambahkan `CLAUDE_CODE_SKIP_AUTH_LOGIN` - setting ini menyebabkan extension loading terus-menerus ("Noodling...").
 
 5. **Simpan file** (`Ctrl+S` atau `Cmd+S`)
 
@@ -1168,7 +1101,7 @@ Untuk menggunakan **Claude Code extension** di VS Code dengan API, Anda perlu me
 
 **Troubleshooting:**
 
-- ⚠️ Jika extension masih meminta login, pastikan `CLAUDE_CODE_SKIP_AUTH_LOGIN` di-set ke `"true"`
+- ⚠️ **JANGAN** gunakan `CLAUDE_CODE_SKIP_AUTH_LOGIN` - menyebabkan loading loop "Noodling..."
 - ⚠️ Pastikan API key valid dan tidak ada spasi di awal/akhir
 - ⚠️ Reload VS Code setelah mengubah settings.json
 - ⚠️ Jika menggunakan workspace settings, pastikan file `.vscode/settings.json` ada di root project
