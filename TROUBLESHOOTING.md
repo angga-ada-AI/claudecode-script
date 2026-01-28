@@ -1018,95 +1018,67 @@ Pastikan API key yang digunakan adalah API key yang valid:
 ## 🔧 Konfigurasi VS Code Extension
 ### Setup Claude Code Extension untuk VS Code
 
-Untuk menggunakan **Claude Code extension** di VS Code dengan API, Anda perlu mengkonfigurasi environment variables di VS Code settings.
+Untuk menggunakan **Claude Code extension** di VS Code dengan API, cukup setup konfigurasi Claude Code.
+
+> [!TIP]
+> **Kabar Baik!** Setup Claude Code berlaku untuk **CLI dan VS Code Extension** sekaligus!
+> Jadi Anda hanya perlu setup sekali untuk kedua-duanya.
 
 > [!IMPORTANT]
-> **Workspace Settings Lebih Reliable!**
-> - Gunakan **Workspace Settings** (`.vscode/settings.json` di folder project) untuk hasil terbaik
-> - User Settings kadang tidak terbaca dengan baik oleh extension di Windows
-> - Workspace Settings hanya berlaku untuk project tertentu, lebih aman dan terisolasi
+> **Jika Anda sudah setup konfigurasi Claude Code, Anda tidak perlu melakukan apa-apa lagi!**
+> VS Code Extension akan otomatis bekerja.
 
-**Cara 1: Workspace Settings (Recommended) ⭐**
+---
 
-1. **Buka folder project di VS Code**
+**Setup Konfigurasi:**
 
-2. **Buat file `.vscode/settings.json` di root folder project:**
-   - Buat folder `.vscode` jika belum ada
-   - Buat file `settings.json` di dalam folder `.vscode`
+**Windows (CMD atau PowerShell):**
+```cmd
+setx ANTHROPIC_AUTH_TOKEN your_api_key
+setx ANTHROPIC_BASE_URL https://api.z.ai/api/anthropic
+```
 
-3. **Atau gunakan Command Palette:**
-   - Tekan `Ctrl+Shift+P` (Windows/Linux) atau `Cmd+Shift+P` (Mac)
-   - Ketik: `Preferences: Open Workspace Settings (JSON)`
-   - File `.vscode/settings.json` akan dibuat otomatis
+**Mac/Linux - Automated Script (Direkomendasikan):**
+```bash
+curl -O "https://cdn.bigmodel.cn/install/claude_code_zai_env.sh" && bash claude_code_zai_env.sh
+```
 
-4. **Tambahkan konfigurasi berikut:**
+**Mac/Linux - Manual Configuration:**
 
-**Windows/Mac/Linux:**
-
+Edit file `~/.claude/settings.json`:
 ```json
 {
-  "claudeCode.environmentVariables": [
-    {
-      "name": "ANTHROPIC_BASE_URL",
-      "value": "https://api.z.ai/api/anthropic"
-    },
-    {
-      "name": "ANTHROPIC_AUTH_TOKEN",
-      "value": "your_api_key"
-    }
-  ]
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "your_zai_api_key",
+    "ANTHROPIC_BASE_URL": "https://api.z.ai/api/anthropic",
+    "API_TIMEOUT_MS": "3000000"
+  }
 }
 ```
 
-**Catatan:** Ganti `your_api_key` dengan API key Anda yang sebenarnya.
+---
 
-> [!WARNING]
-> **JANGAN** tambahkan `CLAUDE_CODE_SKIP_AUTH_LOGIN` - setting ini menyebabkan extension loading terus-menerus ("Noodling...").
+**Langkah selanjutnya:**
+1. Ganti `your_api_key` / `your_zai_api_key` dengan API key Anda yang sebenarnya
+2. **Tutup VS Code sepenuhnya** dan buka kembali
+3. **Selesai!** ✅
 
-5. **Simpan file** (`Ctrl+S` atau `Cmd+S`)
+**Hasil:**
+- ✅ Claude Code CLI langsung menggunakan API
+- ✅ Claude Code VS Code Extension juga otomatis bekerja
+- ✅ **Satu setup untuk CLI dan Extension!**
 
-6. **Reload VS Code:**
-   - Tutup dan buka VS Code lagi
-
-**Cara 2: User Settings (Alternatif)**
-
-> [!WARNING]
-> User Settings kadang tidak terbaca dengan baik di Windows. Gunakan Workspace Settings jika mengalami masalah.
-
-**Lokasi User Settings:**
-- **Windows:** `%APPDATA%\Code\User\settings.json`
-- **Mac:** `~/Library/Application Support/Code/User/settings.json`
-- **Linux:** `~/.config/Code/User/settings.json`
-
-**Langkah-langkah:**
-
-1. **Buka Command Palette:**
-   - Tekan `Ctrl+Shift+P` (Windows/Linux) atau `Cmd+Shift+P` (Mac)
-   - Ketik: `Preferences: Open User Settings (JSON)`
-
-2. **Tambahkan konfigurasi yang sama** seperti di Cara 1
-
-3. **Simpan file** (`Ctrl+S` atau `Cmd+S`)
-
-4. **Reload VS Code:**
-   - Tutup dan buka VS Code lagi
-
-**Setelah konfigurasi:**
-
-- ✅ Claude Code extension akan langsung menggunakan API
-- ✅ Tidak akan muncul prompt login
-- ✅ Extension akan tampil di sidebar (panel Claude)
-- ✅ Bisa langsung chat dengan Claude di VS Code
-- ✅ **Jika masih loading terus**, gunakan Workspace Settings atau CLI di terminal
+---
 
 **Troubleshooting:**
 
 - ⚠️ **JANGAN** gunakan `CLAUDE_CODE_SKIP_AUTH_LOGIN` - menyebabkan loading loop "Noodling..."
 - ⚠️ Pastikan API key valid dan tidak ada spasi di awal/akhir
-- ⚠️ Reload VS Code setelah mengubah settings.json
-- ⚠️ Jika menggunakan workspace settings, pastikan file `.vscode/settings.json` ada di root project
+- ⚠️ **Restart VS Code sepenuhnya** (tutup dan buka lagi) setelah setup
+- ⚠️ Jika masih tidak bekerja, cek konfigurasi:
+  - Windows: `echo %ANTHROPIC_AUTH_TOKEN%` (CMD) atau `echo $env:ANTHROPIC_AUTH_TOKEN` (PowerShell)
+  - Mac/Linux: Cek file `~/.claude/settings.json`
 
----
 
 ### VS Code Extension Panel Loading Terus (Wibbling...)
 
