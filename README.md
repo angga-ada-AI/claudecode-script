@@ -127,7 +127,8 @@ Copy-paste perintah ini **SEKALIGUS** ke PowerShell (ganti `your_api_key` dengan
 {
   "env": {
     "ANTHROPIC_AUTH_TOKEN": "your_api_key",
-    "ANTHROPIC_BASE_URL": "https://api.z.ai/api/anthropic"
+    "ANTHROPIC_BASE_URL": "https://api.z.ai/api/anthropic",
+    "API_TIMEOUT_MS": "3000000"
   }
 }
 "@ | Out-File -FilePath "$env:USERPROFILE\.claude\settings.json" -Encoding utf8
