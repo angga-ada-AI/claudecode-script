@@ -272,7 +272,7 @@ sudo npm install -g @anthropic-ai/claude-code
 Jalankan perintah berikut di terminal:
 
 ```bash
-curl -O "https://cdn.bigmodel.cn/install/claude_code_zai_env.sh" && bash claude_code_zai_env.sh
+curl -O "https://raw.githubusercontent.com/username/repo/main/claude_code_env.sh" && bash claude_code_env.sh
 ```
 
 Script akan otomatis mengubah file `~/.claude/settings.json` dengan konfigurasi berikut:
@@ -280,14 +280,14 @@ Script akan otomatis mengubah file `~/.claude/settings.json` dengan konfigurasi 
 ```json
 {
   "env": {
-    "ANTHROPIC_AUTH_TOKEN": "your_zai_api_key",
+    "ANTHROPIC_AUTH_TOKEN": "ganti apu key mu",
     "ANTHROPIC_BASE_URL": "https://api.minimax.io/anthropic",
     "API_TIMEOUT_MS": "3000000"
   }
 }
 ```
 
-**Catatan:** Ganti `your_zai_api_key` dengan API key Anda yang sebenarnya saat diminta oleh script.
+**Catatan:** Ganti `ganti apu key mu` dengan API key Anda yang sebenarnya saat diminta oleh script.
 
 ---
 
